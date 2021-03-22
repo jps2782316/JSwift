@@ -17,6 +17,7 @@
 		A002F157260883CA00FDEC02 /* JSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002F156260883CA00FDEC02 /* JSwiftUITests.swift */; };
 		A002F16A2608844000FDEC02 /* GenericsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002F1692608844000FDEC02 /* GenericsViewController.swift */; };
 		A002F17F2608A20300FDEC02 /* ProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002F17E2608A20300FDEC02 /* ProtocolViewController.swift */; };
+		A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09940382608CB8B00D33D17 /* CommonViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		A002F158260883CA00FDEC02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A002F1692608844000FDEC02 /* GenericsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsViewController.swift; sourceTree = "<group>"; };
 		A002F17E2608A20300FDEC02 /* ProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolViewController.swift; sourceTree = "<group>"; };
+		A09940382608CB8B00D33D17 /* CommonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +105,7 @@
 		A002F133260883C900FDEC02 /* JSwift */ = {
 			isa = PBXGroup;
 			children = (
-				A002F1862608BAC700FDEC02 /* New Group */,
+				A09940372608CB7400D33D17 /* New Group */,
 				A002F17D2608A1F200FDEC02 /* Protocol */,
 				A002F168260883D500FDEC02 /* Generics */,
 				A002F167260883D200FDEC02 /* Operator */,
@@ -159,9 +161,10 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		A002F1862608BAC700FDEC02 /* New Group */ = {
+		A09940372608CB7400D33D17 /* New Group */ = {
 			isa = PBXGroup;
 			children = (
+				A09940382608CB8B00D33D17 /* CommonViewController.swift */,
 			);
 			path = "New Group";
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				A002F16A2608844000FDEC02 /* GenericsViewController.swift in Sources */,
 				A002F17F2608A20300FDEC02 /* ProtocolViewController.swift in Sources */,
 				A002F139260883C900FDEC02 /* ViewController.swift in Sources */,
+				A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */,
 				A002F135260883C900FDEC02 /* AppDelegate.swift in Sources */,
 				A002F137260883C900FDEC02 /* SceneDelegate.swift in Sources */,
 			);
