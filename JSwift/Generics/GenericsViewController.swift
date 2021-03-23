@@ -46,6 +46,15 @@ class GenericsViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .red
         
+        genericsFuncDemo()
+        genericsSubscriptDemo()
+        genericsProtocolDemo()
+        
+    }
+    
+    
+    ///泛型函数
+    func genericsFuncDemo() {
         let intArr: [Int] = [1, 2, 3, 4]
         let b1 = isContain(inta: 1, in: intArr)
         let b_1 = isContain(item: 1, in: intArr)
@@ -62,8 +71,28 @@ class GenericsViewController: UIViewController {
         print("普通函数: 略, 泛型函数: \(b_3)")
     }
     
-
+    ///泛型下标
+    func genericsSubscriptDemo() {
+        let dic = GenericDictionary(values: ["name": "Merry", "uid": 666, "age": 20])
+        
+        // -------- 下标返回值支持泛型 --------
+        //自动转换类型，不需要在写 "as? String"，"as? Int"
+        let name: String? = dic["name"] //Merry
+        let uid: Int? = dic["age"]  //20
+        print("name: \(name!), age: \(uid!)")
+        
+        // -------- 下标支持泛型 --------
+        // Array下标  [Optional("Merry"), Optional(20)]
+        let nameAndAge = dic[["name", "age"]]
+        //Set下标   [Optional("Merry"), Optional(20), nil]
+        let nameAndAge2 = dic[Set(["name", "age", "weight"])]
+        print("\(nameAndAge), \(nameAndAge2)")
+    }
     
+    ///泛型协议
+    func genericsProtocolDemo() {
+        
+    }
 
 }
 

@@ -14,6 +14,11 @@ class Student: Codable {
         self.name = name
         self.age = age
     }
+    
+    subscript(idx: Int) -> String {
+        return "afaef"
+    }
+    
 }
 //extension Student: Codable { }
 
@@ -26,8 +31,22 @@ class CommonViewController: UIViewController {
         super.viewDidLoad()
         keyPathsDemo()
         codableDemo()
+        subscriptDemo()
     }
     
+    
+    //---------------- 定义下标脚本 ----------------
+    /*
+     下标脚本（Subscripts）
+     https://wiki.jikexueyuan.com/project/swift-language-guide/subscripts.html
+     在Swift中自定义下标（Subscripts）
+     https://www.devtalking.com/articles/custom-subscripts-in-swift/
+     */
+    func subscriptDemo() {
+        let stu = Student(name: "小黄", age: 23)
+        let val = stu[1]
+        print("自定义下标返回值: \(val)")
+    }
     
     
     

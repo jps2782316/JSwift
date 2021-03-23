@@ -18,6 +18,7 @@
 		A002F16A2608844000FDEC02 /* GenericsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002F1692608844000FDEC02 /* GenericsViewController.swift */; };
 		A002F17F2608A20300FDEC02 /* ProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002F17E2608A20300FDEC02 /* ProtocolViewController.swift */; };
 		A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09940382608CB8B00D33D17 /* CommonViewController.swift */; };
+		A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A099403D2609834200D33D17 /* GenericDictionary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		A002F1692608844000FDEC02 /* GenericsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsViewController.swift; sourceTree = "<group>"; };
 		A002F17E2608A20300FDEC02 /* ProtocolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolViewController.swift; sourceTree = "<group>"; };
 		A09940382608CB8B00D33D17 /* CommonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
+		A099403D2609834200D33D17 /* GenericDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				A002F1692608844000FDEC02 /* GenericsViewController.swift */,
+				A099403D2609834200D33D17 /* GenericDictionary.swift */,
 			);
 			path = Generics;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */,
 				A002F135260883C900FDEC02 /* AppDelegate.swift in Sources */,
 				A002F137260883C900FDEC02 /* SceneDelegate.swift in Sources */,
+				A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
