@@ -55,7 +55,7 @@ struct GenericDictionary<Key: Hashable, Value> {
 
 
 /*写一篇泛型相关文章:
- 泛型是什么
+ 泛型是什么, 特性
  泛型的用法
  运用场景
  优点

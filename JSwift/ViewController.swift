@@ -61,8 +61,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = ProtocolViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         case .other:
-            let vc = CommonViewController()
+            let vc = QRCodeViewController()
             self.navigationController?.pushViewController(vc, animated: true)
+            //vc.modalPresentationStyle = .fullScreen
+            //self.present(vc, animated: true, completion: nil)
+        
+            //let vc = CommonViewController()
+            //self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

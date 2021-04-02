@@ -15,8 +15,27 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medium_2x" translatesAutoresizingMaskIntoConstraints="NO" id="Vrj-h6-HNG">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="screen-analytics-medium_2x" translatesAutoresizingMaskIntoConstraints="NO" id="58Y-wc-Sl3">
+                                <rect key="frame" x="50" y="94" width="314" height="718"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Vrj-h6-HNG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ATv-IG-daf"/>
+                            <constraint firstItem="Vrj-h6-HNG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="DTT-I2-su6"/>
+                            <constraint firstItem="58Y-wc-Sl3" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-50" id="GTm-u3-BiT"/>
+                            <constraint firstItem="58Y-wc-Sl3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="KSN-T4-7te"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vrj-h6-HNG" secondAttribute="trailing" id="ZvN-kK-rFw"/>
+                            <constraint firstItem="58Y-wc-Sl3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="hWD-Vn-Sl9"/>
+                            <constraint firstItem="58Y-wc-Sl3" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-50" id="ntb-G5-i2N"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Vrj-h6-HNG" secondAttribute="bottom" id="wct-RF-atd"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -25,8 +44,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="medium_2x" width="1394" height="816"/>
+        <image name="screen-analytics-medium_2x" width="1068" height="668"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
