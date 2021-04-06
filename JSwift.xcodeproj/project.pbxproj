@@ -22,7 +22,12 @@
 		A05495802616CC0900C6AB0B /* QRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A054957E2616CC0900C6AB0B /* QRCodeViewController.xib */; };
 		A05495882616CC1600C6AB0B /* QRCodeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05495872616CC1600C6AB0B /* QRCodeUtil.swift */; };
 		A0549596261701B800C6AB0B /* QRCodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0549595261701B800C6AB0B /* QRCodeScanViewController.swift */; };
-		A05495A12617173B00C6AB0B /* QRCodeScanViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05495A02617173B00C6AB0B /* QRCodeScanViewController+Extension.swift */; };
+		A05495DF2619A25000C6AB0B /* QRCodeRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05495DE2619A25000C6AB0B /* QRCodeRecognizer.swift */; };
+		A05495E42619A32E00C6AB0B /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05495E32619A32E00C6AB0B /* QRCodeGenerator.swift */; };
+		A0973346261C0779007CC582 /* WatermarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973345261C0779007CC582 /* WatermarkMode.swift */; };
+		A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */; };
+		A0973353261C0822007CC582 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973352261C0822007CC582 /* CGImage+Extension.swift */; };
+		A097335E261C486E007CC582 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097335D261C486E007CC582 /* QRCode.swift */; };
 		A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09940382608CB8B00D33D17 /* CommonViewController.swift */; };
 		A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A099403D2609834200D33D17 /* GenericDictionary.swift */; };
 /* End PBXBuildFile section */
@@ -66,7 +71,12 @@
 		A054957E2616CC0900C6AB0B /* QRCodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCodeViewController.xib; sourceTree = "<group>"; };
 		A05495872616CC1600C6AB0B /* QRCodeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeUtil.swift; sourceTree = "<group>"; };
 		A0549595261701B800C6AB0B /* QRCodeScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanViewController.swift; sourceTree = "<group>"; };
-		A05495A02617173B00C6AB0B /* QRCodeScanViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodeScanViewController+Extension.swift"; sourceTree = "<group>"; };
+		A05495DE2619A25000C6AB0B /* QRCodeRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeRecognizer.swift; sourceTree = "<group>"; };
+		A05495E32619A32E00C6AB0B /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
+		A0973345261C0779007CC582 /* WatermarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermarkMode.swift; sourceTree = "<group>"; };
+		A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator2.swift; sourceTree = "<group>"; };
+		A0973352261C0822007CC582 /* CGImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extension.swift"; sourceTree = "<group>"; };
+		A097335D261C486E007CC582 /* QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 		A09940382608CB8B00D33D17 /* CommonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		A099403D2609834200D33D17 /* GenericDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,13 +190,34 @@
 		A054957C2616CBE800C6AB0B /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
+				A05495E82619A37C00C6AB0B /* Core */,
 				A054957D2616CC0900C6AB0B /* QRCodeViewController.swift */,
 				A054957E2616CC0900C6AB0B /* QRCodeViewController.xib */,
-				A05495872616CC1600C6AB0B /* QRCodeUtil.swift */,
-				A0549595261701B800C6AB0B /* QRCodeScanViewController.swift */,
-				A05495A02617173B00C6AB0B /* QRCodeScanViewController+Extension.swift */,
 			);
 			path = QRCode;
+			sourceTree = "<group>";
+		};
+		A05495E82619A37C00C6AB0B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A0973344261C0755007CC582 /* New Group */,
+				A05495DE2619A25000C6AB0B /* QRCodeRecognizer.swift */,
+				A05495E32619A32E00C6AB0B /* QRCodeGenerator.swift */,
+				A0549595261701B800C6AB0B /* QRCodeScanViewController.swift */,
+				A05495872616CC1600C6AB0B /* QRCodeUtil.swift */,
+				A097335D261C486E007CC582 /* QRCode.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		A0973344261C0755007CC582 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				A0973352261C0822007CC582 /* CGImage+Extension.swift */,
+				A0973345261C0779007CC582 /* WatermarkMode.swift */,
+				A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		A09940372608CB7400D33D17 /* New Group */ = {
@@ -336,11 +367,16 @@
 				A0549596261701B800C6AB0B /* QRCodeScanViewController.swift in Sources */,
 				A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */,
 				A002F135260883C900FDEC02 /* AppDelegate.swift in Sources */,
+				A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */,
 				A054957F2616CC0900C6AB0B /* QRCodeViewController.swift in Sources */,
+				A05495DF2619A25000C6AB0B /* QRCodeRecognizer.swift in Sources */,
+				A097335E261C486E007CC582 /* QRCode.swift in Sources */,
 				A002F137260883C900FDEC02 /* SceneDelegate.swift in Sources */,
-				A05495A12617173B00C6AB0B /* QRCodeScanViewController+Extension.swift in Sources */,
+				A0973346261C0779007CC582 /* WatermarkMode.swift in Sources */,
+				A0973353261C0822007CC582 /* CGImage+Extension.swift in Sources */,
 				A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */,
 				A05495882616CC1600C6AB0B /* QRCodeUtil.swift in Sources */,
+				A05495E42619A32E00C6AB0B /* QRCodeGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

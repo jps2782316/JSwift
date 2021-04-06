@@ -34,7 +34,8 @@ class QRCodeViewController: UIViewController {
     //点击生成二维码
     @IBAction func generationClicked(_ sender: Any) {
         guard let str = textField.text, !str.isEmpty else { return }
-        let image = QRCodeUtil.generateCode(inputStr: str, logo: nil)
+        let generator = QRCodeGenerator()
+        let image = generator.generateCode(inputStr: str, logo: UIImage(named: "Pikachu"))
         resultImageView.image = image
     }
     
@@ -91,7 +92,7 @@ extension QRCodeViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         //获取选择的原图
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        let results = QRCodeUtil.recognitionQRCode(image: image)
+        let results = QRCodeRecognizer.recognitionQRCode(image: image)
         imageResultLabel.text = "识别结果: \(results ?? [])"
         //图片控制器退出
         picker.dismiss(animated: true, completion: nil)

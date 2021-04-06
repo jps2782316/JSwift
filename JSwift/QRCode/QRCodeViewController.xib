@@ -55,20 +55,20 @@
                         <action selector="generationClicked:" destination="-1" eventType="touchUpInside" id="wDH-4C-nLX"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结果:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9t-Ax-avS">
-                    <rect key="frame" x="20" y="408" width="40" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结果:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9t-Ax-avS">
+                    <rect key="frame" x="20" y="408" width="39.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结果:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9f-n7-m3s">
-                    <rect key="frame" x="20" y="509" width="40" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="结果:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9f-n7-m3s">
+                    <rect key="frame" x="20" y="508.5" width="39.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g27-i9-zDH">
-                    <rect key="frame" x="20" y="469" width="77" height="30"/>
+                    <rect key="frame" x="20" y="468.5" width="77" height="30"/>
                     <state key="normal" title="扫描二维码"/>
                     <connections>
                         <action selector="recognitionByScan:" destination="-1" eventType="touchUpInside" id="WUA-Oa-IAh"/>
@@ -87,12 +87,14 @@
             <constraints>
                 <constraint firstItem="dL6-Eu-fxH" firstAttribute="top" secondItem="Mh4-Lc-71c" secondAttribute="bottom" constant="30" id="6Ve-hj-ZXt"/>
                 <constraint firstItem="Hzt-fD-9S4" firstAttribute="leading" secondItem="Mh4-Lc-71c" secondAttribute="trailing" constant="40" id="8s6-Gw-RUn"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="L9t-Ax-avS" secondAttribute="trailing" constant="20" id="CXE-tB-0iQ"/>
                 <constraint firstItem="L9t-Ax-avS" firstAttribute="top" secondItem="fd2-1S-dYk" secondAttribute="bottom" constant="10" id="F54-Md-gCR"/>
                 <constraint firstItem="Mh4-Lc-71c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="HbC-ji-pxR"/>
                 <constraint firstItem="fd2-1S-dYk" firstAttribute="top" secondItem="dL6-Eu-fxH" secondAttribute="bottom" constant="40" id="IEe-dl-mgC"/>
                 <constraint firstItem="L9t-Ax-avS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Onw-kV-Uqt"/>
                 <constraint firstItem="aHS-DB-bG1" firstAttribute="centerY" secondItem="fd2-1S-dYk" secondAttribute="centerY" id="Reb-Ws-3C2"/>
                 <constraint firstItem="g27-i9-zDH" firstAttribute="top" secondItem="L9t-Ax-avS" secondAttribute="bottom" constant="40" id="ZyK-h8-Hwc"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="K9f-n7-m3s" secondAttribute="trailing" constant="20" id="am2-Li-Epe"/>
                 <constraint firstItem="dL6-Eu-fxH" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="b7p-fq-L8i"/>
                 <constraint firstItem="Mh4-Lc-71c" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="dEY-vC-Jt4"/>
                 <constraint firstItem="g27-i9-zDH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="glr-Fr-kWt"/>
