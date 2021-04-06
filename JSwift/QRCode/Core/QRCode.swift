@@ -8,6 +8,40 @@
 import Foundation
 import UIKit
 
+extension QRCode {
+    
+    enum CorrectionLevel: String {
+        ///低纠正率
+        case low = "L"
+        ///一般纠正率
+        case normal = "M"
+        ///较高纠正率
+        case superior = "Q"
+        ///高纠正率
+        case hight = "H"
+    }
+    
+    enum DrawShape {
+        /// 正方形
+        case square
+        /// 圆
+        case circle
+    }
+
+    enum GradientType {
+        /// 纯色
+        case none
+        /// 水平渐变
+        case horizontal
+        /// 对角渐变
+        case diagonal
+    }
+    
+}
+
+
+
+
 class QRCode {
     
     /// 文本
@@ -26,3 +60,7 @@ class QRCode {
     var contentColor: UIColor = UIColor.black
     
 }
+
+
+
+

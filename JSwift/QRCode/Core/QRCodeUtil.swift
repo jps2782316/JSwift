@@ -27,7 +27,10 @@ class QRCodeUtil {
      iOS开发-定制多样式二维码
      https://my.oschina.net/u/2473136/blog/524847
      
-     //第三方库
+     [iOS]艺术二维码之路。 (比较有用)
+     https://juejin.cn/post/6844903525143543822
+     
+     //第三方库 (比较有用)
      https://github.com/EFPrefix/EFQRCode //swift
      https://github.com/sylnsfar/qrcode //python
      */

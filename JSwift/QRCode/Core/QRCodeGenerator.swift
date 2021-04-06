@@ -17,9 +17,6 @@ class QRCodeGenerator: NSObject {
     
     
     
-    
-    
-    
     /// 生成二维码
     /// - Parameters:
     ///   - inputStr: 二维码保存的信息 (Limited to at most 1273 characters.)
@@ -27,7 +24,8 @@ class QRCodeGenerator: NSObject {
     /// - Returns:
     func generateCode(inputStr: String, logo: UIImage?) -> UIImage? {
         // 生成一个二维码图片
-        guard let qrcodeImage = generateQRCode(content: inputStr) else { return nil }
+        guard let cgImage = generateQRCode(content: inputStr) else { return nil }
+        let qrcodeImage = UIImage(cgImage: cgImage)
         
         let qrSize = qrcodeImage.size
         if let icon = logo {
@@ -50,7 +48,7 @@ class QRCodeGenerator: NSObject {
     /// 生成一个二维码图片
     /// - Parameter content: 二维码的内容
     /// - Returns:
-    private func generateQRCode(content: String) -> UIImage? {
+    private func generateQRCode(content: String) -> CGImage? {
         //1. 创建一个二维码滤镜
         guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
         //恢复默认设置
@@ -64,12 +62,12 @@ class QRCodeGenerator: NSObject {
         qrFilter.setValue(strData, forKey: "inputMessage")
         
         //3. 从二维码滤镜里面, 获取结果图片
-        guard let qrImg = qrFilter.outputImage else { return nil }
+        guard let ciImage = qrFilter.outputImage else { return nil }
         
         //4. 获得一张高清二维码图片
-        let qrcodeImage = getHDQRCodeWithContext(qrImage: qrImg, size: CGSize(width: 300, height: 300))
+        let cgImage = getHDQRCodeWithContext(qrImage: ciImage, size: CGSize(width: 300, height: 300))
         //let qrcodeImage = getHDQRCodeWithColorFilter(qrImage: qrImg)
-        return qrcodeImage
+        return cgImage
     }
     
     
@@ -81,7 +79,7 @@ class QRCodeGenerator: NSObject {
     ///   - qrImage: 原始二维码图片
     ///   - size: 图片宽度以及高度
     /// - Returns: 高清二维码图片
-    private func getHDQRCodeWithContext(qrImage: CIImage, size: CGSize) -> UIImage? {
+    private func getHDQRCodeWithContext(qrImage: CIImage, size: CGSize) -> CGImage? {
         let extent = qrImage.extent.integral
         let scale = min(size.width/extent.width, size.width/extent.height)
         
@@ -95,10 +93,8 @@ class QRCodeGenerator: NSObject {
         cgContext?.scaleBy(x: scale, y: scale)
         cgContext?.draw(bitmapImage!, in: extent)
         
-        if let scaleImage = cgContext?.makeImage() {
-            return UIImage(cgImage: scaleImage)
-        }
-        return nil
+        let scaleImage = cgContext?.makeImage()
+        return scaleImage
     }
     
     
