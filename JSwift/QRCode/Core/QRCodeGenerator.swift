@@ -11,8 +11,26 @@ import CoreGraphics
 
 class QRCodeGenerator: NSObject {
     
+    ///保存系统亮度
+    private var normalBrightness: CGFloat
     
+    override init() {
+        normalBrightness = UIScreen.main.brightness
+        super.init()
+    }
     
+    //MARK: ----------------- qrCode -----------------
+    
+    /// 调高屏幕亮度 (进入二维码界面时调用viewDidAppear)
+    /// - Parameter brightness: 0.1~1.0之间，值越大越亮
+    func brightnessUp(_ brightness: CGFloat = 0.7) {
+        UIScreen.main.brightness = brightness
+    }
+    
+    ///恢复原来的屏幕亮度
+    func brightnessRecover() {
+        UIScreen.main.brightness = normalBrightness
+    }
     
     
     
@@ -49,7 +67,7 @@ class QRCodeGenerator: NSObject {
     /// - Parameter content: 二维码的内容
     /// - Returns:
     private func generateQRCode(content: String) -> CGImage? {
-        //1. 创建一个二维码滤镜
+        //1. 创建一个二维码滤镜 / 条形码滤镜
         guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
         //恢复默认设置
         qrFilter.setDefaults()
@@ -66,7 +84,8 @@ class QRCodeGenerator: NSObject {
         
         //4. 获得一张高清二维码图片
         let cgImage = getHDQRCodeWithContext(qrImage: ciImage, size: CGSize(width: 300, height: 300))
-        //let qrcodeImage = getHDQRCodeWithColorFilter(qrImage: qrImg)
+        //let cgImage = getHDQRCodeWithColorFilter(qrImage: ciImage)
+        
         return cgImage
     }
     
@@ -74,13 +93,22 @@ class QRCodeGenerator: NSObject {
     
     //MARK: ----------------- 处理原始二维码图片为高清图 -----------------
     
-    /// 调用该方法处理图像变清晰
+    ///CIImage转为CGImage
+    private func convert(ciImage: CIImage) -> CGImage? {
+        let ciContext = CIContext(options: nil)
+        guard let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent) else { return nil }
+        return cgImage
+    }
+    
+    
+    ///方式一:  调用该方法处理图像变清晰
     /// - Parameters:
     ///   - qrImage: 原始二维码图片
     ///   - size: 图片宽度以及高度
-    /// - Returns: 高清二维码图片
+    /// - Returns: 黑白高清二维码图片
     private func getHDQRCodeWithContext(qrImage: CIImage, size: CGSize) -> CGImage? {
         let extent = qrImage.extent.integral
+        //自定义size转为scale
         let scale = min(size.width/extent.width, size.width/extent.height)
         
         let width = extent.width * scale
@@ -98,29 +126,31 @@ class QRCodeGenerator: NSObject {
     }
     
     
-    /// 使用颜色滤镜获得一张高清图
+    ///方式二:  使用颜色滤镜获得一张高清图
     /// - Parameter qrImage: 原始二维码图片
-    /// - Returns: 高清二维码图片
-    private func getHDQRCodeWithColorFilter(qrImage: CIImage) -> UIImage? {
-        /*let ciImage = qrImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
-        return UIImage(ciImage: ciImage)*/
+    /// - Returns: 彩色高清二维码图片
+    private func getHDQRCodeWithColorFilter(qrImage: CIImage) -> CGImage? {
         // 创建颜色滤镜
-        guard let colorFilter = CIFilter(name: "CIFalseColor") else {
-            return nil
-        }
-        colorFilter.setDefaults()
-        colorFilter.setValue(qrImage, forKey: "inputImage")
+        let colorFilter = CIFilter(name: "CIFalseColor")
+        colorFilter?.setDefaults()
+        colorFilter?.setValue(qrImage, forKey: "inputImage")
         let color0 = CIColor(red: 1, green: 1, blue: 1, alpha: 1)
         let color1 = CIColor(red: 0, green: 1, blue: 0, alpha: 1)
-        colorFilter.setValue(color0, forKey: "inputColor0")
-        colorFilter.setValue(color1, forKey: "inputColor1")
-        // 借助这个方法, 处理成为一个高清图片(默认放大10倍)
-        let ciImg = colorFilter.outputImage?.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
-        // 获得一张二维码图片
-        if let ciImg = ciImg {
-            return UIImage(ciImage: ciImg)
+        colorFilter?.setValue(color0, forKey: "inputColor0")
+        colorFilter?.setValue(color1, forKey: "inputColor1")
+        
+        if let colorQRImage = colorFilter?.outputImage {
+            // 借助这个方法, 处理成为一个高清图片(默认放大10倍)。
+            // 不放大是很模糊的，可以自己试一下
+            let ciImage = colorQRImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
+            let cgImage = convert(ciImage: ciImage)
+            return cgImage
+        }else {
+            //不使用滤镜，直接放大也是可以的，只不过是黑白的
+            let ciImage = qrImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
+            let cgImage = convert(ciImage: ciImage)
+            return cgImage
         }
-        return nil
     }
     
     
@@ -140,7 +170,7 @@ class QRCodeGenerator: NSObject {
         let y = (qrRect.height - iconSize.height) / 2.0
         let iconRect = CGRect(x: x, y: y, width: iconSize.width, height: iconSize.height)
         
-        UIGraphicsBeginImageContext(qrRect.size)
+        UIGraphicsBeginImageContextWithOptions(qrRect.size, false, 0)
         //将二维码绘制到上下文
         qrImage.draw(in: qrRect)
         //icon绘制到上下文
@@ -194,7 +224,7 @@ class QRCodeGenerator: NSObject {
         //外层path
         let size1 = CGSize(width: outerRect.size.width/5.0, height: outerRect.size.width/5.0)
         let size0 = CGSize(width: cornerRadius, height: cornerRadius)
-        let outerPath = UIBezierPath(roundedRect: outerRect, byRoundingCorners: .allCorners, cornerRadii: size0)
+        let outerPath = UIBezierPath(roundedRect: outerRect, byRoundingCorners: .allCorners, cornerRadii: size1)
         //内层path
         let size2 = CGSize(width: innerRect.size.width/5.0, height: innerRect.size.width/5.0)
         let innerPath = UIBezierPath(roundedRect: innerRect, byRoundingCorners: .allCorners, cornerRadii: size2)

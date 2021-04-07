@@ -29,6 +29,8 @@
 		A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */; };
 		A0973353261C0822007CC582 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973352261C0822007CC582 /* CGImage+Extension.swift */; };
 		A097335E261C486E007CC582 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097335D261C486E007CC582 /* QRCode.swift */; };
+		A097337A261D9726007CC582 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973379261D9726007CC582 /* Common.swift */; };
+		A0973385261DA8D3007CC582 /* QRCodeGenerator+Others.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973384261DA8D3007CC582 /* QRCodeGenerator+Others.swift */; };
 		A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09940382608CB8B00D33D17 /* CommonViewController.swift */; };
 		A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A099403D2609834200D33D17 /* GenericDictionary.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +81,8 @@
 		A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator2.swift; sourceTree = "<group>"; };
 		A0973352261C0822007CC582 /* CGImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extension.swift"; sourceTree = "<group>"; };
 		A097335D261C486E007CC582 /* QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
+		A0973379261D9726007CC582 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		A0973384261DA8D3007CC582 /* QRCodeGenerator+Others.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodeGenerator+Others.swift"; sourceTree = "<group>"; };
 		A09940382608CB8B00D33D17 /* CommonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		A099403D2609834200D33D17 /* GenericDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,6 +142,7 @@
 				A002F167260883D200FDEC02 /* Operator */,
 				A002F134260883C900FDEC02 /* AppDelegate.swift */,
 				A002F136260883C900FDEC02 /* SceneDelegate.swift */,
+				A0973379261D9726007CC582 /* Common.swift */,
 				A002F138260883C900FDEC02 /* ViewController.swift */,
 				A002F13A260883C900FDEC02 /* Main.storyboard */,
 				A002F13D260883CA00FDEC02 /* Assets.xcassets */,
@@ -206,6 +211,7 @@
 				A05495DE2619A25000C6AB0B /* QRCodeRecognizer.swift */,
 				A05495E32619A32E00C6AB0B /* QRCodeGenerator.swift */,
 				0930A519261CBC690055DF16 /* QRCodeGenerator+Extension.swift */,
+				A0973384261DA8D3007CC582 /* QRCodeGenerator+Others.swift */,
 				A0549595261701B800C6AB0B /* QRCodeScanViewController.swift */,
 				A05495872616CC1600C6AB0B /* QRCodeUtil.swift */,
 				A097335D261C486E007CC582 /* QRCode.swift */,
@@ -371,6 +377,7 @@
 				A0549596261701B800C6AB0B /* QRCodeScanViewController.swift in Sources */,
 				A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */,
 				A002F135260883C900FDEC02 /* AppDelegate.swift in Sources */,
+				A0973385261DA8D3007CC582 /* QRCodeGenerator+Others.swift in Sources */,
 				A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */,
 				A054957F2616CC0900C6AB0B /* QRCodeViewController.swift in Sources */,
 				A05495DF2619A25000C6AB0B /* QRCodeRecognizer.swift in Sources */,
@@ -378,6 +385,7 @@
 				A002F137260883C900FDEC02 /* SceneDelegate.swift in Sources */,
 				A0973346261C0779007CC582 /* WatermarkMode.swift in Sources */,
 				A0973353261C0822007CC582 /* CGImage+Extension.swift in Sources */,
+				A097337A261D9726007CC582 /* Common.swift in Sources */,
 				A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */,
 				A05495882616CC1600C6AB0B /* QRCodeUtil.swift in Sources */,
 				A05495E42619A32E00C6AB0B /* QRCodeGenerator.swift in Sources */,
@@ -559,7 +567,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YP9V896898;
 				INFOPLIST_FILE = JSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -579,7 +587,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YP9V896898;
 				INFOPLIST_FILE = JSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

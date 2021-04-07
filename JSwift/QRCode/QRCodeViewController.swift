@@ -17,24 +17,31 @@ class QRCodeViewController: UIViewController {
     @IBOutlet weak var imageResultLabel: UILabel!
     //扫描二维码
     @IBOutlet weak var scanResultLabel: UILabel!
-        
+    
+    let generator = QRCodeGenerator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        generator.brightnessUp()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        generator.brightnessRecover()
+    }
     
     
     
     //点击生成二维码
     @IBAction func generationClicked(_ sender: Any) {
         guard let str = textField.text, !str.isEmpty else { return }
-        let generator = QRCodeGenerator()
+        
         let image = generator.generateCode(inputStr: str, logo: UIImage(named: "Pikachu"))
         resultImageView.image = image
     }
@@ -51,7 +58,9 @@ class QRCodeViewController: UIViewController {
     
     
     @IBAction func recognitionFromCamera(_ sender: Any) {
-        showImagePicker(isCamera: true)
+        //showImagePicker(isCamera: true)
+        
+        generator.saveQRCodeImageToAlbum(screenView: self.view)
     }
     
     
