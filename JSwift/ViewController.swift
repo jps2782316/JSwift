@@ -55,7 +55,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let type = dataSource[indexPath.row]
         switch type {
         case .generics:
-            let vc = GenericsViewController()
+            //let vc = GenericsViewController()
+            //self.navigationController?.pushViewController(vc, animated: true)
+            let vc = ContextMenuInteractionViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         case .protocol:
             let vc = ProtocolViewController()
