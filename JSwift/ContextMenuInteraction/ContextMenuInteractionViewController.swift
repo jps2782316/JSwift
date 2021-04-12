@@ -9,6 +9,8 @@ import UIKit
 /*
  iOS开发之上下文交互菜单（UIContextMenuInteraction）
  https://www.jianshu.com/p/2b3815062e0f
+ 如何实现iOS 13上下文菜单
+ https://kylebashour.com/posts/ios-13-context-menus
  */
 
 class ContextMenuInteractionViewController: UIViewController {
