@@ -14,12 +14,15 @@ class QRCodeGenerator: NSObject {
     ///保存系统亮度
     private var normalBrightness: CGFloat
     
+    
+    var drawPointMargin: CGFloat = 2
+    
     override init() {
         normalBrightness = UIScreen.main.brightness
         super.init()
     }
     
-    //MARK: ----------------- qrCode -----------------
+    //MARK: ----------------- Other -----------------
     
     /// 调高屏幕亮度 (进入二维码界面时调用viewDidAppear)
     /// - Parameter brightness: 0.1~1.0之间，值越大越亮
@@ -33,7 +36,7 @@ class QRCodeGenerator: NSObject {
     }
     
     
-    
+    //MARK: ----------------- qrCode -----------------
     
     /// 生成二维码
     /// - Parameters:
@@ -41,10 +44,14 @@ class QRCodeGenerator: NSObject {
     ///   - logoImg: 中间logo
     /// - Returns:
     func generateCode(inputStr: String, logo: UIImage?) -> UIImage? {
-        // 生成一个二维码图片
-        guard let cgImage = generateQRCode(content: inputStr) else { return nil }
-        let qrcodeImage = UIImage(cgImage: cgImage)
         
+        //1. 生成一个原始二维码图片
+        guard let ciImage = gennerateOriginalCodeImage(content: inputStr) else { return nil }
+        //2. 获得一张高清二维码图片
+        guard let cgImage = getHDQRCodeWithContext(qrImage: ciImage, size: CGSize(width: 300, height: 300)) else { return nil }
+        //let cgImage = getHDQRCodeWithColorFilter(qrImage: ciImage)
+        
+        let qrcodeImage = UIImage(cgImage: cgImage)
         let qrSize = qrcodeImage.size
         if let icon = logo {
             //logo设置为1/4大小
@@ -59,6 +66,24 @@ class QRCodeGenerator: NSObject {
     }
     
     
+    ///生成渐变二维码
+    func generateGradientCode(str: String) -> UIImage? {
+        //1. 生成一个二维码图片
+        guard let originalImage = gennerateOriginalCodeImage(content: str) else { return nil }
+        // 获得一张高清二维码图片
+        guard let cgImage = getHDQRCodeWithContext(qrImage: originalImage, size: CGSize(width: 300, height: 300)) else { return nil }
+        //2. 获得像素点
+        let codePoints: [[Bool]] = getPixelWith(cgImage: cgImage)
+        
+        // 对应纠错率二维码矩阵点数宽度
+        let extent = originalImage.extent.size.width
+        let size = CGSize(width: extent*10, height: extent*10)
+        
+        let image = drawWith(codePoints: codePoints, size: size, gradientColors: [.red, .blue], shapeStyle: .circle, gradientType: .diagonal([]))
+        return image
+    }
+    
+    
     
     //MARK: ----------------- qrCode -----------------
     
@@ -66,7 +91,7 @@ class QRCodeGenerator: NSObject {
     /// 生成一个二维码图片
     /// - Parameter content: 二维码的内容
     /// - Returns:
-    private func generateQRCode(content: String) -> CGImage? {
+    private func gennerateOriginalCodeImage(content: String) -> CIImage? {
         //1. 创建一个二维码滤镜 / 条形码滤镜
         guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
         //恢复默认设置
@@ -79,14 +104,18 @@ class QRCodeGenerator: NSObject {
         let strData = content.data(using: .utf8, allowLossyConversion: false)
         qrFilter.setValue(strData, forKey: "inputMessage")
         
-        //3. 从二维码滤镜里面, 获取结果图片
-        guard let ciImage = qrFilter.outputImage else { return nil }
+        let ciImage = qrFilter.outputImage
         
-        //4. 获得一张高清二维码图片
-        let cgImage = getHDQRCodeWithContext(qrImage: ciImage, size: CGSize(width: 300, height: 300))
-        //let cgImage = getHDQRCodeWithColorFilter(qrImage: ciImage)
+        return ciImage
         
-        return cgImage
+//        //3. 从二维码滤镜里面, 获取结果图片
+//        guard let ciImage = qrFilter.outputImage else { return nil }
+//
+//        //4. 获得一张高清二维码图片
+//        let cgImage = getHDQRCodeWithContext(qrImage: ciImage, size: CGSize(width: 300, height: 300))
+//        //let cgImage = getHDQRCodeWithColorFilter(qrImage: ciImage)
+//
+//        return cgImage
     }
     
     

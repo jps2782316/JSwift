@@ -38,6 +38,14 @@
 		A0CD44DF26244179009753E6 /* ContextMenuViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD44DD26244179009753E6 /* ContextMenuViewController1.swift */; };
 		A0CD44E526245FDA009753E6 /* ContextMenuDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD44E426245FDA009753E6 /* ContextMenuDetailViewController.swift */; };
 		A0CD44ED262467E5009753E6 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD44EC262467E5009753E6 /* ImageCell.swift */; };
+		A0CD44FF26256864009753E6 /* image_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0CD44F926256864009753E6 /* image_2.jpg */; };
+		A0CD450026256864009753E6 /* image_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0CD44FA26256864009753E6 /* image_3.jpg */; };
+		A0CD450126256864009753E6 /* image_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0CD44FB26256864009753E6 /* image_1.jpg */; };
+		A0CD450226256864009753E6 /* image_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0CD44FC26256864009753E6 /* image_0.jpg */; };
+		A0CD450326256864009753E6 /* image_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0CD44FD26256864009753E6 /* image_4.jpg */; };
+		A0CD450426256864009753E6 /* image_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0CD44FE26256864009753E6 /* image_5.jpg */; };
+		A0CD450C26256984009753E6 /* ContextMenuForTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD450B26256984009753E6 /* ContextMenuForTableViewController.swift */; };
+		A0CD451126256A8D009753E6 /* ChatTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD451026256A8D009753E6 /* ChatTextCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +103,14 @@
 		A0CD44DD26244179009753E6 /* ContextMenuViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuViewController1.swift; sourceTree = "<group>"; };
 		A0CD44E426245FDA009753E6 /* ContextMenuDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuDetailViewController.swift; sourceTree = "<group>"; };
 		A0CD44EC262467E5009753E6 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		A0CD44F926256864009753E6 /* image_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_2.jpg; sourceTree = "<group>"; };
+		A0CD44FA26256864009753E6 /* image_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_3.jpg; sourceTree = "<group>"; };
+		A0CD44FB26256864009753E6 /* image_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_1.jpg; sourceTree = "<group>"; };
+		A0CD44FC26256864009753E6 /* image_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_0.jpg; sourceTree = "<group>"; };
+		A0CD44FD26256864009753E6 /* image_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_4.jpg; sourceTree = "<group>"; };
+		A0CD44FE26256864009753E6 /* image_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_5.jpg; sourceTree = "<group>"; };
+		A0CD450B26256984009753E6 /* ContextMenuForTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuForTableViewController.swift; sourceTree = "<group>"; };
+		A0CD451026256A8D009753E6 /* ChatTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,13 +268,29 @@
 		A0CD44D2262419BE009753E6 /* ContextMenuInteraction */ = {
 			isa = PBXGroup;
 			children = (
+				A0CD44F826256864009753E6 /* images */,
 				A0CD44D326241AF4009753E6 /* ContextMenuInteractionViewController.swift */,
 				A0CD44D426241AF4009753E6 /* ContextMenuInteractionViewController.xib */,
 				A0CD44DD26244179009753E6 /* ContextMenuViewController1.swift */,
 				A0CD44EC262467E5009753E6 /* ImageCell.swift */,
+				A0CD450B26256984009753E6 /* ContextMenuForTableViewController.swift */,
+				A0CD451026256A8D009753E6 /* ChatTextCell.swift */,
 				A0CD44E426245FDA009753E6 /* ContextMenuDetailViewController.swift */,
 			);
 			path = ContextMenuInteraction;
+			sourceTree = "<group>";
+		};
+		A0CD44F826256864009753E6 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				A0CD44F926256864009753E6 /* image_2.jpg */,
+				A0CD44FA26256864009753E6 /* image_3.jpg */,
+				A0CD44FB26256864009753E6 /* image_1.jpg */,
+				A0CD44FC26256864009753E6 /* image_0.jpg */,
+				A0CD44FD26256864009753E6 /* image_4.jpg */,
+				A0CD44FE26256864009753E6 /* image_5.jpg */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,8 +398,14 @@
 			files = (
 				A002F141260883CA00FDEC02 /* LaunchScreen.storyboard in Resources */,
 				A002F13E260883CA00FDEC02 /* Assets.xcassets in Resources */,
+				A0CD450326256864009753E6 /* image_4.jpg in Resources */,
+				A0CD44FF26256864009753E6 /* image_2.jpg in Resources */,
 				A05495802616CC0900C6AB0B /* QRCodeViewController.xib in Resources */,
+				A0CD450426256864009753E6 /* image_5.jpg in Resources */,
 				A002F13C260883C900FDEC02 /* Main.storyboard in Resources */,
+				A0CD450226256864009753E6 /* image_0.jpg in Resources */,
+				A0CD450126256864009753E6 /* image_1.jpg in Resources */,
+				A0CD450026256864009753E6 /* image_3.jpg in Resources */,
 				A0CD44D626241AF4009753E6 /* ContextMenuInteractionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +435,7 @@
 				A002F17F2608A20300FDEC02 /* ProtocolViewController.swift in Sources */,
 				A002F139260883C900FDEC02 /* ViewController.swift in Sources */,
 				0930A51A261CBC690055DF16 /* QRCodeGenerator+Extension.swift in Sources */,
+				A0CD451126256A8D009753E6 /* ChatTextCell.swift in Sources */,
 				A0CD44DF26244179009753E6 /* ContextMenuViewController1.swift in Sources */,
 				A0CD44ED262467E5009753E6 /* ImageCell.swift in Sources */,
 				A05495602615B00200C6AB0B /* CommonViewController+Net.swift in Sources */,
@@ -405,6 +444,7 @@
 				A002F135260883C900FDEC02 /* AppDelegate.swift in Sources */,
 				A0CD44E526245FDA009753E6 /* ContextMenuDetailViewController.swift in Sources */,
 				A0973385261DA8D3007CC582 /* QRCodeGenerator+Others.swift in Sources */,
+				A0CD450C26256984009753E6 /* ContextMenuForTableViewController.swift in Sources */,
 				A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */,
 				A054957F2616CC0900C6AB0B /* QRCodeViewController.swift in Sources */,
 				A05495DF2619A25000C6AB0B /* QRCodeRecognizer.swift in Sources */,

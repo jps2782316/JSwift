@@ -11,6 +11,8 @@ import UIKit
  https://www.jianshu.com/p/2b3815062e0f
  如何实现iOS 13上下文菜单
  https://kylebashour.com/posts/ios-13-context-menus
+ 适用于iOS的上下文菜单教程：入门
+ https://www.raywenderlich.com/6328155-context-menus-tutorial-for-ios-getting-started
  */
 
 class ContextMenuInteractionViewController: UIViewController {
@@ -35,12 +37,14 @@ class ContextMenuInteractionViewController: UIViewController {
     
     
     @IBAction func btnClicked(_ sender: Any) {
-        let vc = ContextMenuForCollectionVC()
+        let vc = ContextMenuForTableViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
     @IBAction func btnClicked2(_ sender: Any) {
+        let vc = ContextMenuForCollectionVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -128,9 +132,8 @@ extension ContextMenuInteractionViewController: UIContextMenuInteractionDelegate
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
         animator.addCompletion {[weak self] in
             //点击预览图后，全屏展示图片
-            let detailVC = ContextMenuDetailViewController()
-            detailVC.image = self?.imageView.image
-            self?.show(detailVC, sender: nil)
+            let detailVC = ContextMenuDetailViewController(image: self?.imageView.image)
+            self?.show(detailVC, sender: self)
             //self?.present(detailVC, animated: true, completion: nil)
         }
     }

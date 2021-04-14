@@ -21,7 +21,7 @@ extension QRCode {
         case hight = "H"
     }
     
-    enum DrawShape {
+    enum ShapeStyle {
         /// 正方形
         case square
         /// 圆
@@ -32,9 +32,9 @@ extension QRCode {
         /// 纯色
         case none
         /// 水平渐变
-        case horizontal
+        case horizontal(_ colors: [UIColor])
         /// 对角渐变
-        case diagonal
+        case diagonal(_ colors: [UIColor])
     }
     
     /*
