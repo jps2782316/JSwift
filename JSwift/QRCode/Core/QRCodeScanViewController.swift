@@ -8,16 +8,6 @@
 import UIKit
 import AVFoundation
 
-/*
- 高级:
- 识别到多张二维码时，在图片中标出来，用户选哪张，就处理哪张
- 艺术二维码
- 
- //基础功能:
- 二维码界面自动调高亮度、闪光灯、扫描动画
- 二维码保存到相册(支持截屏保存、单独保存二维码)
- 二维码中间添加logo(logo描边)
- */
 
 
 ///二维码扫描视图
@@ -27,16 +17,24 @@ class QRCodeScanViewController: UIViewController {
     
     ///输入输出中间桥梁(会话)
     var session: AVCaptureSession!
-    
     //扫描结果回调
     var completed: ((_ results: [String]?) -> Void)?
     
+    
+//    var lineLayer: CAShapeLayer!
+//    var animation: CABasicAnimation!
+    
+    var preview: QRCodeScanningPreview!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addScanningVideo()
         setUI()
+        
+        preview = QRCodeScanningPreview(frame: view.frame)
+        preview.autoresizingMask = .flexibleHeight
+        view.addSubview(preview)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,8 +47,22 @@ class QRCodeScanViewController: UIViewController {
     }
     
     
+    
+    
+    ///开始扫描
+    func startScanning() {
+        session.startRunning()
+        preview.startAnimation()
+    }
+    
+    ///停止扫描
+    func stopScanning() {
+        session.stopRunning()
+        preview.stopAnimation()
+    }
+    
+    
     private func setUI() {
-        //let y = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
         let y = kTopSafeHeigh
         let closeBtn = UIButton()
         closeBtn.frame = CGRect(x: 20, y: y, width: 50, height: 50)
@@ -74,7 +86,7 @@ class QRCodeScanViewController: UIViewController {
     @objc func flashClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         let isOpen = sender.isSelected
-        openFlash(isOpen)
+        openTorch(isOpen)
     }
     
     func addScanningVideo() {
@@ -106,24 +118,59 @@ class QRCodeScanViewController: UIViewController {
         let previewLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: session)
         previewLayer.videoGravity = .resizeAspectFill
         previewLayer.frame = view.bounds
-        view.layer.insertSublayer(previewLayer, at: 0)
+        preview.layer.insertSublayer(previewLayer, at: 0)
         
         //添加中间的探测区域绿框
-        let scanSize = CGSize(width: kScreenW*(3/4), height: kScreenW*(3/4))
-        let scanRectView = UIView()
-        self.view.addSubview(scanRectView)
-        scanRectView.bounds = CGRect(x: 0, y: 0, width: scanSize.width, height: scanSize.height)
-        scanRectView.center = CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY)
-        scanRectView.layer.borderColor = UIColor.green.cgColor
-        scanRectView.layer.borderWidth = 1
+        let w = kScreenW*(3/4)
+        let h = kScreenW*(3/4)
+        let scanRect = CGRect(x: (kScreenW - w)/2.0, y: (kScreenH - h)/2.0, width: w, height: h)
+        
+//        let scanRectView = UIView(frame: scanRect)
+//        self.view.addSubview(scanRectView)
+//        scanRectView.layer.borderColor = UIColor.green.cgColor
+//        scanRectView.layer.borderWidth = 1
+        
+//        //遮罩
+//        self.view.layer.backgroundColor = UIColor.black.cgColor
+//        let maskPath = UIBezierPath(rect: self.view.bounds)
+//        let subPath = UIBezierPath(rect: scanRect).reversing()
+//        maskPath.append(subPath)
+//        let maskLayer = CAShapeLayer()
+//        maskLayer.fillColor = UIColor.black.withAlphaComponent(0.6).cgColor
+//        maskLayer.path = maskPath.cgPath
+//        self.view.layer.addSublayer(maskLayer)
+//        
+//        //扫描线
+//        let lineFrame = CGRect(x: scanRect.origin.x, y: scanRect.origin.y, width: scanRect.width, height: 1.5)
+//        let linePath = UIBezierPath(ovalIn: CGRect(origin: .zero, size: lineFrame.size))
+//        lineLayer = CAShapeLayer()
+//        lineLayer.frame = lineFrame
+//        lineLayer.path = linePath.cgPath
+//        lineLayer.fillColor = UIColor.blue.cgColor
+//        lineLayer.shadowColor = UIColor.blue.cgColor
+//        lineLayer.shadowRadius = 5
+//        lineLayer.shadowOffset = CGSize.zero
+//        lineLayer.shadowOpacity = 1.0
+//        lineLayer.isHidden = false
+//        self.view.layer.addSublayer(lineLayer)
+//        //扫描动画
+//        animation = CABasicAnimation(keyPath: "position.y")
+//        animation.fromValue = lineFrame.origin.y
+//        animation.toValue = lineFrame.origin.y + scanRect.height
+//        animation.repeatCount = 100
+//        animation.autoreverses = true
+//        animation.duration = 2.0
         
         //9.设置有效扫描区域(默认整个屏幕区域)（每个取值0~1, 以屏幕右上角为坐标原点）。注意x,y交换位置
-        let rect = CGRect(x: scanRectView.frame.minY / kScreenH, y: scanRectView.frame.minX / kScreenW, width: scanRectView.frame.height / kScreenH, height: scanRectView.frame.width / kScreenW)
+        let rect = CGRect(x: scanRect.minY / kScreenH, y: scanRect.minX / kScreenW, width: scanRect.height / kScreenH, height: scanRect.width / kScreenW)
         metadataOutput.rectOfInterest = rect
         
         //10. 开始扫描
-        session.startRunning()
+        startScanning()
     }
+    
+    
+    
     
 }
 
@@ -134,7 +181,7 @@ extension QRCodeScanViewController: AVCaptureMetadataOutputObjectsDelegate {
         //2. 以震动的形式告知用户扫描成功
         AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
         //3. 关闭session
-        session.stopRunning()
+        stopScanning()
         //4. 遍历结果
         var resultArr = [String]()
         for result in metadataObjects {
@@ -165,16 +212,16 @@ extension QRCodeScanViewController: AVCaptureMetadataOutputObjectsDelegate {
 
 extension QRCodeScanViewController {
     
-    ///打开/关闭闪光灯
-    private func openFlash(_ isOpen: Bool) {
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }
-        if captureDevice.hasTorch {
+    ///打开/关闭闪光灯 / 手电筒
+    private func openTorch(_ isOpen: Bool) {
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
+        if device.hasFlash && device.hasTorch {
             do {
-                try captureDevice.lockForConfiguration()
+                try device.lockForConfiguration()
                 //打开/关闭 闪光灯
                 let isOn: AVCaptureDevice.TorchMode = isOpen ? .on : .off
-                captureDevice.torchMode = isOn
-                captureDevice.unlockForConfiguration()
+                device.torchMode = isOn
+                device.unlockForConfiguration()
             }catch {
                 print("打开闪光灯错误: \(error)")
             }

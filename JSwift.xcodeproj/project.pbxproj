@@ -33,6 +33,8 @@
 		A0973385261DA8D3007CC582 /* QRCodeGenerator+Others.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973384261DA8D3007CC582 /* QRCodeGenerator+Others.swift */; };
 		A09940392608CB8B00D33D17 /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09940382608CB8B00D33D17 /* CommonViewController.swift */; };
 		A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A099403D2609834200D33D17 /* GenericDictionary.swift */; };
+		A0CA133526280943001465F5 /* CIImage+Pixcels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CA133426280943001465F5 /* CIImage+Pixcels.swift */; };
+		A0CA13402628590A001465F5 /* QRCodeScanningPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CA133F2628590A001465F5 /* QRCodeScanningPreview.swift */; };
 		A0CD44D526241AF4009753E6 /* ContextMenuInteractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD44D326241AF4009753E6 /* ContextMenuInteractionViewController.swift */; };
 		A0CD44D626241AF4009753E6 /* ContextMenuInteractionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CD44D426241AF4009753E6 /* ContextMenuInteractionViewController.xib */; };
 		A0CD44DF26244179009753E6 /* ContextMenuViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD44DD26244179009753E6 /* ContextMenuViewController1.swift */; };
@@ -98,6 +100,8 @@
 		A0973384261DA8D3007CC582 /* QRCodeGenerator+Others.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodeGenerator+Others.swift"; sourceTree = "<group>"; };
 		A09940382608CB8B00D33D17 /* CommonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
 		A099403D2609834200D33D17 /* GenericDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDictionary.swift; sourceTree = "<group>"; };
+		A0CA133426280943001465F5 /* CIImage+Pixcels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Pixcels.swift"; sourceTree = "<group>"; };
+		A0CA133F2628590A001465F5 /* QRCodeScanningPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanningPreview.swift; sourceTree = "<group>"; };
 		A0CD44D326241AF4009753E6 /* ContextMenuInteractionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuInteractionViewController.swift; sourceTree = "<group>"; };
 		A0CD44D426241AF4009753E6 /* ContextMenuInteractionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextMenuInteractionViewController.xib; sourceTree = "<group>"; };
 		A0CD44DD26244179009753E6 /* ContextMenuViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuViewController1.swift; sourceTree = "<group>"; };
@@ -240,8 +244,10 @@
 				0930A519261CBC690055DF16 /* QRCodeGenerator+Extension.swift */,
 				A0973384261DA8D3007CC582 /* QRCodeGenerator+Others.swift */,
 				A0549595261701B800C6AB0B /* QRCodeScanViewController.swift */,
+				A0CA133F2628590A001465F5 /* QRCodeScanningPreview.swift */,
 				A05495872616CC1600C6AB0B /* QRCodeUtil.swift */,
 				A097335D261C486E007CC582 /* QRCode.swift */,
+				A0CA133426280943001465F5 /* CIImage+Pixcels.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -445,6 +451,7 @@
 				A0CD44E526245FDA009753E6 /* ContextMenuDetailViewController.swift in Sources */,
 				A0973385261DA8D3007CC582 /* QRCodeGenerator+Others.swift in Sources */,
 				A0CD450C26256984009753E6 /* ContextMenuForTableViewController.swift in Sources */,
+				A0CA133526280943001465F5 /* CIImage+Pixcels.swift in Sources */,
 				A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */,
 				A054957F2616CC0900C6AB0B /* QRCodeViewController.swift in Sources */,
 				A05495DF2619A25000C6AB0B /* QRCodeRecognizer.swift in Sources */,
@@ -457,6 +464,7 @@
 				A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */,
 				A05495882616CC1600C6AB0B /* QRCodeUtil.swift in Sources */,
 				A05495E42619A32E00C6AB0B /* QRCodeGenerator.swift in Sources */,
+				A0CA13402628590A001465F5 /* QRCodeScanningPreview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,82 +7,19 @@
 
 import UIKit
 
-
-
-
-
-
-
 extension QRCodeGenerator {
-
-    //MARK: ----------------- 生成矩阵数组 -----------------
     
-    /// 取出一张图片指定 pixel 的 RGBA 值，然后将这个值存在二维数组中
-    /// - Parameter cgImage: 二维码图片
-    /// - Returns:
-    func getPixelWith(cgImage: CGImage) -> [[Bool]] {
-        
-        let width  = cgImage.width
-        let height = cgImage.height
-        
-        //创建一个颜色空间
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-                
-        // 开辟一段 unsigned char 的存储空间，用 rawData 指向这段内存.
-        // 每个 RGBA 色值的范围是 0-255，所以刚好是一个 unsigned char 的存储大小.
-        // 每张图片有 height * width 个点，每个点有 RGBA 4个色值，所以刚好是 height * width * 4.
-        // 这段代码的意思是开辟了 height * width * 4 个 unsigned char 的存储大小.
-        let dataSize = width * height * 4
-        var rawData = [UInt8](repeating: 0, count: Int(dataSize))
-        //let rawData = UnsafeMutableRawPointer.allocate(byteCount: width * height * 4, alignment: 8)
-        
-        //每个像素的大小是4字节
-        let bytesPerPixel = 4
-        //每行字节数
-        let bytesPerRow = width * bytesPerPixel
-        //一个字节8比特
-        let bitsPerComponent = 8
-        let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Big.rawValue
-        
-        // 将系统的二维码图片和我们创建的 rawData 关联起来，这样我们就可以通过 rawData 拿到指定 pixel 的内存地址.
-        let context = CGContext(data: &rawData, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo)
-        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
-        
-        var pixels: [[Bool]] = [[]]
-        for indexY in 0..<height {
-            var arr: [Bool] = []
-            for indexX in 0..<width {
-                //取出每个pixel的RGBA值，保存到矩阵中
-                var byteIndex = bytesPerRow * indexY + indexX * bytesPerPixel
-                let red = rawData[byteIndex]
-                let green = rawData[byteIndex + 1]
-                let blue = rawData[byteIndex + 2]
-                
-                let shouldDisplay = red == 0 && green == 0 && blue == 0
-                arr.append(shouldDisplay)
-                
-                byteIndex += bytesPerPixel
-            }
-            pixels.append(arr)
-        }
-        //free(&rawData)
-        return pixels
-    }
-    
-    
-    
-    func drawWith(codePoints: [[Bool]], size: CGSize, gradientColors: [UIColor], shapeStyle: QRCode.ShapeStyle, gradientType: QRCode.GradientType) -> UIImage? {
-        let h = size.height //有多少行像素
+    func drawQRCode(codePoints: [[Bool]], finalSize: CGSize, shapeStyle: QRCode.ShapeStyle, gradientType: QRCode.GradientType) -> UIImage? {
+        let h = finalSize.height 
         let delta = h / CGFloat(codePoints.count)
         
-        //UIGraphicsBeginImageContextWithOptions(CGSize(width: h, height: h), false, 0)
         UIGraphicsBeginImageContext(CGSize(width: h, height: h))
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         for indexY in 0..<codePoints.count {
             for indexX in 0..<codePoints[indexY].count {
                 let shouldDisplay = codePoints[indexY][indexX]
                 if shouldDisplay {
-                    
+                    drawPoint(context: context, indexX: CGFloat(indexX), indexY: CGFloat(indexY), delta: delta, imgWH: h, gradientType: gradientType, shapeStyle: shapeStyle)
                 }
             }
         }
@@ -93,7 +30,7 @@ extension QRCodeGenerator {
     }
     
     
-    func drawPoint(context: CGContext, indexX: CGFloat, indexY: CGFloat, delta: CGFloat, imgWH: CGFloat, colors: [UIColor], gradientType: QRCode.GradientType, shapeStyle: QRCode.ShapeStyle) {
+    func drawPoint(context: CGContext, indexX: CGFloat, indexY: CGFloat, delta: CGFloat, imgWH: CGFloat, gradientType: QRCode.GradientType, shapeStyle: QRCode.ShapeStyle) {
         //点的形状
         var bezierPath: UIBezierPath
         switch shapeStyle {
@@ -105,44 +42,46 @@ extension QRCodeGenerator {
             let endAngle: CGFloat = 2 * CGFloat.pi
             bezierPath = UIBezierPath(arcCenter: CGPoint(x: centerX, y: centerY), radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         case .square:
-            bezierPath = UIBezierPath(rect: CGRect(x: indexX * delta, y: indexX * delta, width: delta, height: delta))
+            bezierPath = UIBezierPath(rect: CGRect(x: indexX * delta, y: indexY * delta, width: delta, height: delta))
         }
         
         //渐变色
         let point1 = CGPoint(x: indexX * delta, y: indexY * delta)
         let point2 = CGPoint(x: (indexX + 1) * delta, y: (indexY + 1) * delta)
-        let gradientColors = getGradientColors(startPoint: point1, endPoint: point2, totalW: imgWH, colors: colors, gradientType: gradientType)
+        let gradientColors = getGradientColors(startPoint: point1, endPoint: point2, totalW: imgWH, gradientType: gradientType)
         
         //绘制
         if let color1 = gradientColors?.first?.cgColor, let color2 = gradientColors?.last?.cgColor {
             drawLinearGradient(context: context, path: bezierPath.cgPath, startColor: color1, endColor: color2, gradientType: gradientType)
-            //context.saveGState()
         }
         
     }
     
     
-    //MARK: ----------------- 颜色 -----------------
+    //MARK: ----------------- 绘制点 -----------------
     
+    ///绘制每一个点
     func drawLinearGradient(context: CGContext, path: CGPath, startColor: CGColor, endColor: CGColor, gradientType: QRCode.GradientType) {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let locations: [CGFloat] = [0.0, 1.0]
-        
+        /*
         guard let startComponents = startColor.components else { return }
         guard let endComponents = endColor.components else { return }
-        let colorComponents = [startComponents[0], startComponents[1], startComponents[2], endComponents[0], endComponents[1], endComponents[2]]
-        
+        let colorComponents = [startComponents[0], startComponents[1], startComponents[2], startComponents[3], endComponents[0], endComponents[1], endComponents[2], endComponents[3]]
         guard let gradient = CGGradient(colorSpace: colorSpace, colorComponents: colorComponents, locations: locations, count: 2) else { return }
+        */
+        let colors: CFArray = [startColor, endColor] as CFArray
+        guard let gradient = CGGradient(colorsSpace: colorSpace, colors: colors, locations: locations) else { return }
         
         let pathRect = path.boundingBox
         var startPoint = CGPoint.zero
         var endPoint = CGPoint.zero
         
         switch gradientType {
-        case .diagonal(_):
+        case .diagonal:
             startPoint = CGPoint(x: pathRect.minX, y: pathRect.minY)
             endPoint = CGPoint(x: pathRect.maxX, y: pathRect.maxY)
-        case .horizontal(_):
+        case .horizontal:
             startPoint = CGPoint(x: pathRect.minX, y: pathRect.midY)
             endPoint = CGPoint(x: pathRect.maxX, y: pathRect.midY)
         case .none: break
@@ -159,7 +98,9 @@ extension QRCodeGenerator {
     
     //MARK: ----------------- 颜色 -----------------
     
-    func getGradientColors(startPoint: CGPoint, endPoint: CGPoint, totalW: CGFloat, colors: [UIColor], gradientType: QRCode.GradientType) -> [UIColor]? {
+    ///计算每个点的渐变色
+    func getGradientColors(startPoint: CGPoint, endPoint: CGPoint, totalW: CGFloat, gradientType: QRCode.GradientType) -> [UIColor]? {
+        let colors = gradientType.colors
         guard let color1 = colors.first else { return nil }
         let color2 = colors.last ?? color1
         
@@ -177,7 +118,7 @@ extension QRCodeGenerator {
         
         var result: [UIColor]?
         switch gradientType {
-        case .horizontal(let _): //水平渐变
+        case .horizontal: //水平渐变
             let startDelta = startPoint.x / totalW
             let endDelta = endPoint.x / totalW
             
@@ -193,10 +134,11 @@ extension QRCodeGenerator {
             
             result = [startColor, endColor]
             
-        case .diagonal(let _): //对角渐变
+        case .diagonal: //对角渐变
             let startDelta = calculateDiagonal(point: startPoint) / (totalW * totalW)
             let endDelta = calculateDiagonal(point: endPoint) / (totalW * totalW)
             
+            //(1 - startDelta) * red1 + startDelta * red2
             let startRed = red1 + startDelta * (red2 - red1)
             let startGreen = green1 + startDelta * (green2 - green1)
             let startBlue = blue1 + startDelta * (blue2 - blue1)

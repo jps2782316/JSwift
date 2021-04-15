@@ -14,8 +14,9 @@ class QRCodeGenerator: NSObject {
     ///保存系统亮度
     private var normalBrightness: CGFloat
     
-    
+    ///两个点之间的间距
     var drawPointMargin: CGFloat = 2
+    
     
     override init() {
         normalBrightness = UIScreen.main.brightness
@@ -36,29 +37,31 @@ class QRCodeGenerator: NSObject {
     }
     
     
-    //MARK: ----------------- qrCode -----------------
+    //MARK: ----------------- 生成二维码 -----------------
     
-    /// 生成二维码
+    /// 生成纯色二维码
     /// - Parameters:
     ///   - inputStr: 二维码保存的信息 (Limited to at most 1273 characters.)
     ///   - logoImg: 中间logo
     /// - Returns:
     func generateCode(inputStr: String, logo: UIImage?) -> UIImage? {
-        
-        //1. 生成一个原始二维码图片
-        guard let ciImage = gennerateOriginalCodeImage(content: inputStr) else { return nil }
+        //1. 生成一个原始二维码图片 (CIImage)
+        guard let originalImage = gennerateOriginalCodeImage(content: inputStr) else { return nil }
         //2. 获得一张高清二维码图片
-        guard let cgImage = getHDQRCodeWithContext(qrImage: ciImage, size: CGSize(width: 300, height: 300)) else { return nil }
+        guard let cgImage = getHDQRCodeWithContext(qrImage: originalImage, size: CGSize(width: 300, height: 300)) else { return nil }
         //let cgImage = getHDQRCodeWithColorFilter(qrImage: ciImage)
-        
         let qrcodeImage = UIImage(cgImage: cgImage)
-        let qrSize = qrcodeImage.size
+        
+        //3. 添加logo
         if let icon = logo {
             //logo设置为1/4大小
+            let qrSize = qrcodeImage.size
             let iconSize = CGSize(width: qrSize.width*0.25, height: qrSize.height*0.25)
-            //logo圆角、描边
+            //处理icon (圆角、描边)
             let finalIcon = clipIcon(icon, iconSize: iconSize)!
-            let resultImage = addIconToQRCode(qrcodeImage, icon: finalIcon, qrSize: qrSize, iconSize: iconSize)
+            //把二维码和icon绘制成一张图
+            //let resultImage = addIconToQRCode(qrcodeImage, icon: finalIcon, qrSize: qrSize, iconSize: iconSize)
+            let resultImage = addIconToQRCode(cgImage, icon: finalIcon.cgImage!, qrSize: qrSize, iconSize: iconSize)
             return resultImage
         }
         
@@ -70,23 +73,33 @@ class QRCodeGenerator: NSObject {
     func generateGradientCode(str: String) -> UIImage? {
         //1. 生成一个二维码图片
         guard let originalImage = gennerateOriginalCodeImage(content: str) else { return nil }
-        // 获得一张高清二维码图片
-        guard let cgImage = getHDQRCodeWithContext(qrImage: originalImage, size: CGSize(width: 300, height: 300)) else { return nil }
-        //2. 获得像素点
-        let codePoints: [[Bool]] = getPixelWith(cgImage: cgImage)
+        guard let cgImage = originalImage.cgImage else { return nil }
+        //2. 获得像素点 (这里会有一行是空的，过滤掉，不然二维码的上下留白不对称)
+        let codePoints: [[Bool]] = cgImage.pixcels.filter({$0.count > 0})
         
         // 对应纠错率二维码矩阵点数宽度
         let extent = originalImage.extent.size.width
-        let size = CGSize(width: extent*10, height: extent*10)
+        let size = CGSize(width: extent*50, height: extent*50)
         
-        let image = drawWith(codePoints: codePoints, size: size, gradientColors: [.red, .blue], shapeStyle: .circle, gradientType: .diagonal([]))
+        let image = drawQRCode(codePoints: codePoints, finalSize: size, shapeStyle: .circle, gradientType: .horizontal(.red, .blue))
         return image
     }
+    /*
+     输入的内容不同，originalImage.extent.size也不同,若放大50倍:
+     输入"a":
+     originalImage.extent.size 为 (23.0, 23.0)
+     codePoints.count 为 23
+     最终二维码的image.size 为 (1150.0, 1150.0)
+     
+     输入"aaaaaaa":
+     originalImage.extent.size 为 (27.0, 27.0)
+     codePoints.count 为 27
+     最终二维码的image.size 为 (1350.0, 1350.0)
+     
+     */
     
     
-    
-    //MARK: ----------------- qrCode -----------------
-    
+    //MARK: ----------------- 从系统滤镜获得原始二维码 -----------------
     
     /// 生成一个二维码图片
     /// - Parameter content: 二维码的内容
@@ -104,31 +117,15 @@ class QRCodeGenerator: NSObject {
         let strData = content.data(using: .utf8, allowLossyConversion: false)
         qrFilter.setValue(strData, forKey: "inputMessage")
         
+        //3. 从二维码滤镜里面, 获取结果图片
         let ciImage = qrFilter.outputImage
         
         return ciImage
-        
-//        //3. 从二维码滤镜里面, 获取结果图片
-//        guard let ciImage = qrFilter.outputImage else { return nil }
-//
-//        //4. 获得一张高清二维码图片
-//        let cgImage = getHDQRCodeWithContext(qrImage: ciImage, size: CGSize(width: 300, height: 300))
-//        //let cgImage = getHDQRCodeWithColorFilter(qrImage: ciImage)
-//
-//        return cgImage
     }
     
     
     
     //MARK: ----------------- 处理原始二维码图片为高清图 -----------------
-    
-    ///CIImage转为CGImage
-    private func convert(ciImage: CIImage) -> CGImage? {
-        let ciContext = CIContext(options: nil)
-        guard let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent) else { return nil }
-        return cgImage
-    }
-    
     
     ///方式一:  调用该方法处理图像变清晰
     /// - Parameters:
@@ -168,25 +165,23 @@ class QRCodeGenerator: NSObject {
         colorFilter?.setValue(color0, forKey: "inputColor0")
         colorFilter?.setValue(color1, forKey: "inputColor1")
         
+        var ciImage: CIImage
         if let colorQRImage = colorFilter?.outputImage {
             // 借助这个方法, 处理成为一个高清图片(默认放大10倍)。
             // 不放大是很模糊的，可以自己试一下
-            let ciImage = colorQRImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
-            let cgImage = convert(ciImage: ciImage)
-            return cgImage
+            ciImage = colorQRImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
         }else {
             //不使用滤镜，直接放大也是可以的，只不过是黑白的
-            let ciImage = qrImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
-            let cgImage = convert(ciImage: ciImage)
-            return cgImage
+            ciImage = qrImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
         }
+        return ciImage.cgImage
     }
     
     
     
-    //MARK: ----------------- icon -----------------
+    //MARK: ----------------- 二维码和icon合成 -----------------
     
-    /// 添加一个icon到二维码中间
+    /// 方式一: 添加一个icon到二维码中间
     /// - Parameters:
     ///   - qrImage: 原本的二维码图片
     ///   - icon: 添加到中间的icon
@@ -194,7 +189,9 @@ class QRCodeGenerator: NSObject {
     ///   - iconSize: icon的大小
     /// - Returns:
     private func addIconToQRCode(_ qrImage: UIImage, icon: UIImage, qrSize: CGSize, iconSize: CGSize) -> UIImage? {
+        //画布的rect
         let qrRect = CGRect(x: 0, y: 0, width: qrSize.width, height: qrSize.height)
+        //计算icon的frame
         let x = (qrRect.width - iconSize.width) / 2.0
         let y = (qrRect.height - iconSize.height) / 2.0
         let iconRect = CGRect(x: x, y: y, width: iconSize.width, height: iconSize.height)
@@ -209,11 +206,14 @@ class QRCodeGenerator: NSObject {
         return resultImage
     }
     
-    /*
-    private func generateQRCode(qrImage: UIImage, iconImage: UIImage, qrSize: CGSize) -> UIImage? {
+    ///方式二: 添加一个icon到二维码中间
+    private func addIconToQRCode(_ qrImage: CGImage, icon: CGImage, qrSize: CGSize, iconSize: CGSize) -> UIImage? {
         //画布的rect
         let qrRect = CGRect(origin: .zero, size: qrSize)
-        let iconRect = CGRect(x: 0, y: 0, width: qrSize.width/4.0, height: qrSize.height/4.0)
+        //计算icon的frame
+        let x = (qrRect.width - iconSize.width) / 2.0
+        let y = (qrRect.height - iconSize.height) / 2.0
+        let iconRect = CGRect(x: x, y: y, width: iconSize.width, height: iconSize.height)
         
         UIGraphicsBeginImageContextWithOptions(qrSize, true, UIScreen.main.scale)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
@@ -221,14 +221,14 @@ class QRCodeGenerator: NSObject {
         context.translateBy(x: 0, y: qrSize.height)
         context.scaleBy(x: 1, y: -1)
         // 根据 bgRect 用二维码填充视图 (注意⚠️: 滤镜生成的qrImage转cgImage为空)
-        context.draw(qrImage.cgImage!, in: qrRect)
+        context.draw(qrImage, in: qrRect)
         // 根据logoRect 填充头像区域
-        context.draw(iconImage.cgImage!, in: iconRect)
+        context.draw(icon, in: iconRect)
         context.restoreGState()
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return resultImage
-    }*/
+    }
     
         
     /// 处理logo图片，添加圆角、描边
