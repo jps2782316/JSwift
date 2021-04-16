@@ -16,39 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "255"
             endingLineNumber = "255"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1FD9D108-6FAA-4072-8594-FF7D92DC9EAC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeScanViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "setUI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F0BAE01C-82B9-478F-BE6B-D20499819490"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeScanViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "viewWillDisappear(_:)"
+            landmarkName = "clipIcon(_:iconSize:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -124,15 +92,15 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "82"
             endingLineNumber = "82"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "generateGradientCode(str:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "1768BFFE-3001-4602-B8C7-3C308B0D284C"
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSwift/QRCode/Core/QRCodeGenerator+Extension.swift"
@@ -157,6 +125,54 @@
             startingLineNumber = "120"
             endingLineNumber = "120"
             landmarkName = "getGradientColors(startPoint:endPoint:totalW:gradientType:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2ABD7247-FD4C-40CE-B76B-26384EDE631E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JSwift/QRCode/Core/QRCodeGenerator.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "generateGradientCode(str:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C0E5868-23B6-4940-93F6-6227ADC60093"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JSwift/QRCode/Core/QRCodeScanningPreview.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "startAnimation()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "713E5A3D-8DC5-4B12-A9CA-407A11FE91BA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JSwift/QRCode/Core/Generator/QRCodeGenerator.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "clipIcon(_:iconSize:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

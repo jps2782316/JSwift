@@ -74,6 +74,9 @@ extension QRCode {
             }
         }
     }
+    
+    
+    
 }
 
 
@@ -85,19 +88,28 @@ class QRCode {
     var text: String
     /// 二维码中间的logo
     var icon: UIImage?
+    var logo: Logo?
     
     ///纠错级别
     var correctionLevel: CorrectionLevel = .hight
     ///绘制形状
     var shapeStyle: ShapeStyle = .square
-    
-    /// 二维码颜色
-    var color: UIColor = UIColor.black
-    /// 二维码背景颜色
-    var bgColor: UIColor = UIColor.white
+    ///二维码颜色，默认纯色无渐变
+    var color: GradientType = .none(.black)
     
     /// 二维码缩放倍数{27*scale,27*scale}
     var scale: Float = 10
+    
+    
+    
+    /// 二维码颜色
+    //var color: UIColor = UIColor.black
+    
+    /// 二维码背景颜色
+    var bgColor: UIColor = UIColor.white
+    
+    
+    
     
     
     
@@ -109,9 +121,52 @@ class QRCode {
 
 class GradientQRCode {
     
+}
+
+
+class Logo {
+    //typealias LogoBorder = (color: UIColor, width: ValueStyle, corner: ValueStyle)
+    typealias Border = (color: UIColor, width: CGFloat, corner: CGFloat)
     
+    
+    var image: UIImage
+    ///绘制logo时的填充色，logo带透明度时，就能看到这个颜色
+    var fillColor: UIColor?
+    
+    ///logo大小，默认为二维码大小的1/4
+    var size: ValueStyle = .scale(0.25)
+    
+    ///外边框
+    var outerBorder: Border? = Border(color: .white, width: 8, corner: 2)
+    ///那边框
+    var innerBorder: Border?
+    
+    
+    
+//    ///外边框颜色
+//    var outerColor: UIColor?
+//    ///外边款总宽度。可见宽度为: outerWidth - innerWidth
+//    var outerWidth: CGFloat = 8
+//    ///外边框圆角
+//    var outerCorner: CGFloat = 4
+//
+//
+//    var width: ValueStyle = .fix(8)
+//    var corner: ValueStyle = .scale(1/5)
+    
+    
+    
+    
+    init(image: UIImage) {
+        self.image = image
+        //outerBorder?.width
+    }
     
 }
 
 
+enum ValueStyle {
+    case fix(_ value: CGFloat)
+    case scale(_ scale: CFloat)
+}
 

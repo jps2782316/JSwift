@@ -42,8 +42,8 @@ class QRCodeViewController: UIViewController {
     @IBAction func generationClicked(_ sender: Any) {
         guard let str = textField.text, !str.isEmpty else { return }
         
-        //let image = generator.generateCode(inputStr: str, logo: UIImage(named: "Pikachu"))
-        let image = generator.generateGradientCode(str: str)
+        let image = generator.generateCode(inputStr: str, logo: UIImage(named: "Pikachu"))
+        //let image = generator.generateGradientCode(str: str)
         resultImageView.image = image
     }
     
@@ -67,9 +67,9 @@ class QRCodeViewController: UIViewController {
     
     //扫描二维码
     @IBAction func recognitionByScan(_ sender: Any) {
-        let qrScanVC = QRCodeScanViewController()
+        let qrScanVC = CodeScanningViewController()
         self.navigationController?.pushViewController(qrScanVC, animated: true)
-        qrScanVC.completed = {[weak self] results in
+        qrScanVC.scanSuccessed = {[weak self] results in
             //是链接，跳转网页
             //普通文字，就展示出来
             print("扫描成功回调: \(results ?? [])")

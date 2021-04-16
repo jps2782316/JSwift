@@ -48,25 +48,28 @@ class QRCodeGenerator: NSObject {
         //1. 生成一个原始二维码图片 (CIImage)
         guard let originalImage = gennerateOriginalCodeImage(content: inputStr) else { return nil }
         //2. 获得一张高清二维码图片
-        guard let cgImage = getHDQRCodeWithContext(qrImage: originalImage, size: CGSize(width: 300, height: 300)) else { return nil }
-        //let cgImage = getHDQRCodeWithColorFilter(qrImage: ciImage)
+        //guard let cgImage = getHDQRCodeWithContext(qrImage: originalImage, size: CGSize(width: 300, height: 300)) else { return nil }
+        guard  let cgImage = getHDQRCodeWithColorFilter(qrImage: originalImage) else { return nil }
         let qrcodeImage = UIImage(cgImage: cgImage)
         
         //3. 添加logo
-        if let icon = logo {
+        if let icon = logo?.cgImage  {
             //logo设置为1/4大小
             let qrSize = qrcodeImage.size
             let iconSize = CGSize(width: qrSize.width*0.25, height: qrSize.height*0.25)
             //处理icon (圆角、描边)
-            let finalIcon = clipIcon(icon, iconSize: iconSize)!
-            //把二维码和icon绘制成一张图
-            //let resultImage = addIconToQRCode(qrcodeImage, icon: finalIcon, qrSize: qrSize, iconSize: iconSize)
-            let resultImage = addIconToQRCode(cgImage, icon: finalIcon.cgImage!, qrSize: qrSize, iconSize: iconSize)
-            return resultImage
+            if let finalIcon = clipIcon(logo!, iconSize: iconSize)?.cgImage {
+            //if let finalIcon = handleIcon(icon, iconSize: iconSize)?.cgImage {
+                //把二维码和icon绘制成一张图
+                //let resultImage = addIconToQRCode(qrcodeImage, icon: finalIcon, qrSize: qrSize, iconSize: iconSize)
+                let resultImage = addIconToQRCode(cgImage, icon: finalIcon, qrSize: qrSize, iconSize: iconSize)
+                return resultImage
+            }
         }
         
         return qrcodeImage
     }
+    
     
     
     ///生成渐变二维码
@@ -76,7 +79,7 @@ class QRCodeGenerator: NSObject {
         guard let cgImage = originalImage.cgImage else { return nil }
         //2. 获得像素点 (这里会有一行是空的，过滤掉，不然二维码的上下留白不对称)
         let codePoints: [[Bool]] = cgImage.pixcels.filter({$0.count > 0})
-        
+
         // 对应纠错率二维码矩阵点数宽度
         let extent = originalImage.extent.size.width
         let size = CGSize(width: extent*50, height: extent*50)
@@ -123,6 +126,13 @@ class QRCodeGenerator: NSObject {
         return ciImage
     }
     
+    /*注意⚠️: 研究一下绘制图片的方法
+     获得UIImage:
+     UIGraphicsGetImageFromCurrentImageContext()
+     
+     获得CGImage:
+     cgContext?.makeImage()
+     */
     
     
     //MARK: ----------------- 处理原始二维码图片为高清图 -----------------
@@ -160,10 +170,10 @@ class QRCodeGenerator: NSObject {
         let colorFilter = CIFilter(name: "CIFalseColor")
         colorFilter?.setDefaults()
         colorFilter?.setValue(qrImage, forKey: "inputImage")
-        let color0 = CIColor(red: 1, green: 1, blue: 1, alpha: 1)
-        let color1 = CIColor(red: 0, green: 1, blue: 0, alpha: 1)
-        colorFilter?.setValue(color0, forKey: "inputColor0")
-        colorFilter?.setValue(color1, forKey: "inputColor1")
+        let color = CIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        let bgColor = CIColor(red: 0, green: 1, blue: 0, alpha: 1)
+        colorFilter?.setValue(color, forKey: "inputColor0")
+        colorFilter?.setValue(bgColor, forKey: "inputColor1")
         
         var ciImage: CIImage
         if let colorQRImage = colorFilter?.outputImage {
@@ -230,7 +240,39 @@ class QRCodeGenerator: NSObject {
         return resultImage
     }
     
+    
+    func handleIcon(_ icon: CGImage, iconSize: CGSize) -> UIImage? {
+        //logo的绘制区域
+        let areaRect = CGRect(x: 0, y: 0, width: iconSize.width, height: iconSize.height)
+//        //外边框总宽度。可见宽度为: outerWidth - innerWidth
+//        let outerWidth = iconSize.width / 15.0
+//        //那边框宽度
+//        let innerWidth = outerWidth / 10
+        ///外边框总宽度。可见宽度为: outerWidth - innerWidth
+        let outerWidth: CGFloat = 8
+        let innerWidth: CGFloat = 1
         
+        let outerOrigin = outerWidth / 2.0
+        let innerOrigin = innerWidth / 2.0
+        //绘制外边框的rect
+        let outerRect = areaRect.insetBy(dx: outerOrigin, dy: outerOrigin)
+        //绘制内边框的rect
+        let innerRect = outerRect.insetBy(dx: innerOrigin, dy: innerOrigin)
+        
+        //外边框圆角
+        let size1 = CGSize(width: outerRect.size.width/5.0, height: outerRect.size.width/5.0)
+        //内边框圆角
+        let size2 = CGSize(width: innerRect.size.width/5.0, height: innerRect.size.width/5.0)
+        
+        
+        
+        let image = clipIcon(cgIcon: icon, areaRect: areaRect,
+                 outerRect: outerRect, outerWidth: outerWidth, cornerRadii: size1, outerColor: .white,
+                 innerRect: innerRect, innerWidth: innerWidth, innerCornerRadii: size2, innerColor: .black)
+        
+        return image
+    }
+    
     /// 处理logo图片，添加圆角、描边
     /// - Parameters:
     ///   - iconImage: logo
@@ -239,20 +281,29 @@ class QRCodeGenerator: NSObject {
     private func clipIcon(_ icon: UIImage, iconSize: CGSize) -> UIImage? {
         guard let cgIcon = icon.cgImage else { return nil }
         
-        let outerWidth = iconSize.width / 15.0
-        let innerWidth = outerWidth / 10.0
-        let cornerRadius = iconSize.width / 5.0
+//        let outerWidth = iconSize.width / 15.0
+//        let innerWidth = outerWidth / 2 //10
         
+        ///外边框总宽度。可见宽度为: outerWidth - innerWidth
+        let outerWidth: CGFloat = 8
+        let innerWidth: CGFloat = 1
+        let cornerRadius = iconSize.width / 5 //5
+        /*注意⚠️:
+         贝塞尔曲线的cornerRadii明明设置的是圆角，
+         传一个CGFloat就够了，为啥要传CGSize，了解一下原理
+         */
+        
+        //logo的绘制区域
         let areaRect = CGRect(x: 0, y: 0, width: iconSize.width, height: iconSize.height)
         let areaPath = UIBezierPath(roundedRect: areaRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
         
         let outerOrigin = outerWidth / 2.0
-        let innerOrigin = innerWidth / 2.0 + outerOrigin / 1.2
+        let innerOrigin = innerWidth / 2.0 //+ outerOrigin / 1.2
         let outerRect = areaRect.insetBy(dx: outerOrigin, dy: outerOrigin)
         let innerRect = outerRect.insetBy(dx: innerOrigin, dy: innerOrigin)
         //外层path
-        let size1 = CGSize(width: outerRect.size.width/5.0, height: outerRect.size.width/5.0)
-        let size0 = CGSize(width: cornerRadius, height: cornerRadius)
+        //let size1 = CGSize(width: outerRect.size.width/5.0, height: outerRect.size.width/5.0)
+        let size1 = CGSize(width: cornerRadius, height: cornerRadius)
         let outerPath = UIBezierPath(roundedRect: outerRect, byRoundingCorners: .allCorners, cornerRadii: size1)
         //内层path
         let size2 = CGSize(width: innerRect.size.width/5.0, height: innerRect.size.width/5.0)
@@ -263,13 +314,94 @@ class QRCodeGenerator: NSObject {
         // 开启画布
         context.saveGState()
         // 翻转context
+        //注意⚠️: 如果不翻转，画出来的logo是倒的。这里需要了解一下画布原理及坐标
         context.translateBy(x: 0, y: iconSize.height)
         context.scaleBy(x: 1, y: -1)
-        // 1.先对画布进行裁切
+        // 1.先对画布进行裁切 (裁不裁剪都没影响，研究一下裁剪到底是干了啥)
+        /*
+         注意⚠️: 这里要么不裁剪，要么只能裁areaPath。如果裁outerPath的话，外边框就显示不出来了。
+         */
         context.addPath(areaPath.cgPath)
+        //context.addPath(outerPath.cgPath)
         context.clip()
-        // 2.填充背景颜色
+        // 2.填充背景颜色。
+        /*注意⚠️: 填充颜色的区域如果用areaPath的话,
+         会导致填充的颜色漏出一点，就算设置outerPath和areaPath的圆角一样，也会漏出来
+         fillPath的圆角和strokePath的圆角，不一样。做个demo和UIView的圆角比一下，看那个正确。
+        */
+        //context.addPath(areaPath.cgPath)
+        context.addPath(outerPath.cgPath)
+        let fillColor = UIColor.red
+        context.setFillColor(fillColor.cgColor)
+        context.fillPath()
+        // 3.执行绘制logo
+        context.draw(cgIcon, in: innerRect)
+        // 4.添加并绘制白色边框
+        context.addPath(outerPath.cgPath)
+        context.setStrokeColor(UIColor.white.cgColor)
+        context.setLineWidth(outerWidth)
+        context.strokePath()
+        // 5.白色边框的基础上进行绘制黑色分割线
+        context.addPath(innerPath.cgPath)
+        context.setStrokeColor(UIColor.black.cgColor)
+        context.setLineWidth(innerWidth)
+        context.strokePath()
+        // 提交画布
+        context.restoreGState()
+        
+        // 从画布中提取图片
+        let radiusImage = UIGraphicsGetImageFromCurrentImageContext()
+        // 释放画布
+        UIGraphicsEndImageContext()
+        return radiusImage
+    }
+    
+    
+    
+    
+    private func clipIcon(cgIcon: CGImage, areaRect: CGRect,
+                          outerRect: CGRect, outerWidth: CGFloat, cornerRadii: CGSize, outerColor: UIColor,
+                          innerRect: CGRect, innerWidth: CGFloat, innerCornerRadii: CGSize, innerColor: UIColor) -> UIImage? {
+        /*注意⚠️:
+         贝塞尔曲线的cornerRadii明明设置的是圆角，
+         传一个CGFloat就够了，为啥要传CGSize，了解一下原理
+         */
+        
+        //logo的绘制区域
+        //let areaRect = CGRect(x: 0, y: 0, width: iconSize.width, height: iconSize.height)
+        let areaPath = UIBezierPath(roundedRect: areaRect, byRoundingCorners: .allCorners, cornerRadii: cornerRadii)
+        
+//        let outerOrigin = outerWidth / 2.0
+//        let innerOrigin = innerWidth / 2.0
+//        let outerRect = areaRect.insetBy(dx: outerOrigin, dy: outerOrigin)
+//        let innerRect = outerRect.insetBy(dx: innerOrigin, dy: innerOrigin)
+        //外层path
+        let outerPath = UIBezierPath(roundedRect: outerRect, byRoundingCorners: .allCorners, cornerRadii: cornerRadii)
+        //内层path
+        let innerPath = UIBezierPath(roundedRect: innerRect, byRoundingCorners: .allCorners, cornerRadii: innerCornerRadii)
+        //设置画布信息
+        UIGraphicsBeginImageContextWithOptions(areaRect.size, false, UIScreen.main.scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        // 开启画布
+        context.saveGState()
+        // 翻转context
+        //注意⚠️: 如果不翻转，画出来的logo是倒的。这里需要了解一下画布原理及坐标
+        context.translateBy(x: 0, y: areaRect.size.height)
+        context.scaleBy(x: 1, y: -1)
+        // 1.先对画布进行裁切 (裁不裁剪都没影响，研究一下裁剪到底是干了啥)
+        /*
+         注意⚠️: 这里要么不裁剪，要么只能裁areaPath。如果裁outerPath的话，外边框就显示不出来了。
+         */
         context.addPath(areaPath.cgPath)
+        //context.addPath(outerPath.cgPath)
+        context.clip()
+        // 2.填充背景颜色。
+        /*注意⚠️: 填充颜色的区域如果用areaPath的话,
+         会导致填充的颜色漏出一点，就算设置outerPath和areaPath的圆角一样，也会漏出来
+         fillPath的圆角和strokePath的圆角，不一样。做个demo和UIView的圆角比一下，看那个正确。
+        */
+        //context.addPath(areaPath.cgPath)
+        context.addPath(outerPath.cgPath) //其实填充innerPath也就够了
         let fillColor = UIColor.red
         context.setFillColor(fillColor.cgColor)
         context.fillPath()
