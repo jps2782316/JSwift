@@ -42,7 +42,9 @@ class QRCodeViewController: UIViewController {
     @IBAction func generationClicked(_ sender: Any) {
         guard let str = textField.text, !str.isEmpty else { return }
         
-        let image = generator.generateCode(inputStr: str, logo: UIImage(named: "Pikachu"))
+        //let image = generator.generateCode(inputStr: str, logo: UIImage(named: "Pikachu"))
+        let qr = QRCode(content: str, icon: UIImage(named: "Pikachu"), color: .black,  bgColor: .white)
+        let image = generator.generateCode(qrCode: qr, scale: 10)
         //let image = generator.generateGradientCode(str: str)
         resultImageView.image = image
     }

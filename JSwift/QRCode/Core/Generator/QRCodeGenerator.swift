@@ -27,7 +27,7 @@ class QRCodeGenerator: NSObject {
     
     /// 调高屏幕亮度 (进入二维码界面时调用viewDidAppear)
     /// - Parameter brightness: 0.1~1.0之间，值越大越亮
-    func brightnessUp(_ brightness: CGFloat = 0.7) {
+    func brightnessUp(_ brightness: CGFloat = 0.6) {
         UIScreen.main.brightness = brightness
     }
     
@@ -44,22 +44,22 @@ class QRCodeGenerator: NSObject {
     ///   - inputStr: 二维码保存的信息 (Limited to at most 1273 characters.)
     ///   - logoImg: 中间logo
     /// - Returns:
-    func generateCode(inputStr: String, logo: UIImage?) -> UIImage? {
+    func generateCode(qrCode: QRCode, scale: CGFloat) -> UIImage? {
         //1. 生成一个原始二维码图片 (CIImage)
-        guard let originalImage = gennerateOriginalCodeImage(content: inputStr) else { return nil }
+        guard let originalImage = gennerateOriginalCodeImage(content: qrCode.content, inputCorrectionLevel: qrCode.correctionLevel.rawValue) else { return nil }
         //2. 获得一张高清二维码图片
         //guard let cgImage = getHDQRCodeWithContext(qrImage: originalImage, size: CGSize(width: 300, height: 300)) else { return nil }
-        guard  let cgImage = getHDQRCodeWithColorFilter(qrImage: originalImage) else { return nil }
+        guard let cgImage = getHDQRCodeWithColorFilter(originalImage: originalImage, scale: scale, color: CIColor(color: qrCode.color), bgColor: CIColor(color: qrCode.bgColor)) else { return nil }
+        //guard  let cgImage = getHDQRCodeWithColorFilter(originalImage: originalImage) else { return nil }
         let qrcodeImage = UIImage(cgImage: cgImage)
         
         //3. 添加logo
-        if let icon = logo?.cgImage  {
-            //logo设置为1/4大小
+        if let icon = qrCode.icon?.cgImage {
             let qrSize = qrcodeImage.size
-            let iconSize = CGSize(width: qrSize.width*0.25, height: qrSize.height*0.25)
+            //logo大小
+            let iconSize = CGSize(width: qrSize.width*qrCode.iconScale, height: qrSize.height*qrCode.iconScale)
             //处理icon (圆角、描边)
-            if let finalIcon = clipIcon(logo!, iconSize: iconSize)?.cgImage {
-            //if let finalIcon = handleIcon(icon, iconSize: iconSize)?.cgImage {
+            if let finalIcon = handleIcon(icon, iconSize: iconSize)?.cgImage {
                 //把二维码和icon绘制成一张图
                 //let resultImage = addIconToQRCode(qrcodeImage, icon: finalIcon, qrSize: qrSize, iconSize: iconSize)
                 let resultImage = addIconToQRCode(cgImage, icon: finalIcon, qrSize: qrSize, iconSize: iconSize)
@@ -75,7 +75,7 @@ class QRCodeGenerator: NSObject {
     ///生成渐变二维码
     func generateGradientCode(str: String) -> UIImage? {
         //1. 生成一个二维码图片
-        guard let originalImage = gennerateOriginalCodeImage(content: str) else { return nil }
+        guard let originalImage = gennerateOriginalCodeImage(content: str, inputCorrectionLevel: "H") else { return nil }
         guard let cgImage = originalImage.cgImage else { return nil }
         //2. 获得像素点 (这里会有一行是空的，过滤掉，不然二维码的上下留白不对称)
         let codePoints: [[Bool]] = cgImage.pixcels.filter({$0.count > 0})
@@ -107,13 +107,14 @@ class QRCodeGenerator: NSObject {
     /// 生成一个二维码图片
     /// - Parameter content: 二维码的内容
     /// - Returns:
-    private func gennerateOriginalCodeImage(content: String) -> CIImage? {
+    private func gennerateOriginalCodeImage(content: String, inputCorrectionLevel: String) -> CIImage? {
         //1. 创建一个二维码滤镜 / 条形码滤镜
         guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
         //恢复默认设置
         qrFilter.setDefaults()
         //设置生成的二维码的容错率
-        qrFilter.setValue("H", forKey: "inputCorrectionLevel")
+        //qrFilter.setValue("H", forKey: "inputCorrectionLevel")
+        qrFilter.setValue(inputCorrectionLevel, forKey: "inputCorrectionLevel")
         
         //2. 设置输入的内容(KVC)
         //注意:key = inputMessage, value必须是Data类型
@@ -142,17 +143,16 @@ class QRCodeGenerator: NSObject {
     ///   - qrImage: 原始二维码图片
     ///   - size: 图片宽度以及高度
     /// - Returns: 黑白高清二维码图片
-    private func getHDQRCodeWithContext(qrImage: CIImage, size: CGSize) -> CGImage? {
-        let extent = qrImage.extent.integral
+    private func getHDQRCodeWithContext(originalImage: CIImage, scale: CGFloat) -> CGImage? {
+        let extent = originalImage.extent.integral
         //自定义size转为scale
-        let scale = min(size.width/extent.width, size.width/extent.height)
-        
+        //let scale = min(size.width/extent.width, size.width/extent.height)
         let width = extent.width * scale
         let height = extent.height * scale
         
         let cgContext = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: CGColorSpaceCreateDeviceGray(), bitmapInfo: CGImageAlphaInfo.none.rawValue)
         let ciContext = CIContext(options: nil)
-        let bitmapImage = ciContext.createCGImage(qrImage, from: extent)
+        let bitmapImage = ciContext.createCGImage(originalImage, from: extent)
         cgContext?.interpolationQuality = CGInterpolationQuality.none
         cgContext?.scaleBy(x: scale, y: scale)
         cgContext?.draw(bitmapImage!, in: extent)
@@ -162,27 +162,33 @@ class QRCodeGenerator: NSObject {
     }
     
     
-    ///方式二:  使用颜色滤镜获得一张高清图
-    /// - Parameter qrImage: 原始二维码图片
+    
+    /// 方式二:  使用颜色滤镜获得一张高清图
+    /// - Parameters:
+    ///   - originalImage: 原始二维码图片
+    ///   - scale: 放大多少倍
+    ///   - color: 二维码颜色
+    ///   - bgColor: 背景色
     /// - Returns: 彩色高清二维码图片
-    private func getHDQRCodeWithColorFilter(qrImage: CIImage) -> CGImage? {
+    private func getHDQRCodeWithColorFilter(originalImage: CIImage, scale: CGFloat, color: CIColor, bgColor: CIColor) -> CGImage? {
         // 创建颜色滤镜
         let colorFilter = CIFilter(name: "CIFalseColor")
         colorFilter?.setDefaults()
-        colorFilter?.setValue(qrImage, forKey: "inputImage")
-        let color = CIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        let bgColor = CIColor(red: 0, green: 1, blue: 0, alpha: 1)
+        colorFilter?.setValue(originalImage, forKey: "inputImage")
+        //let color = CIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        //let bgColor = CIColor(red: 0, green: 1, blue: 0, alpha: 1)
         colorFilter?.setValue(color, forKey: "inputColor0")
+        //注意⚠️:不设置inputColor1，滤镜会自己默认带一个颜色？
         colorFilter?.setValue(bgColor, forKey: "inputColor1")
         
         var ciImage: CIImage
         if let colorQRImage = colorFilter?.outputImage {
             // 借助这个方法, 处理成为一个高清图片(默认放大10倍)。
             // 不放大是很模糊的，可以自己试一下
-            ciImage = colorQRImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
+            ciImage = colorQRImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
         }else {
             //不使用滤镜，直接放大也是可以的，只不过是黑白的
-            ciImage = qrImage.transformed(by: CGAffineTransform(scaleX: 10, y: 10))
+            ciImage = originalImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
         }
         return ciImage.cgImage
     }
@@ -241,6 +247,13 @@ class QRCodeGenerator: NSObject {
     }
     
     
+    //MARK: ----------------- 处理icon -----------------
+    
+    /// 处理logo图片，添加圆角、描边
+    /// - Parameters:
+    ///   - icon: logo
+    ///   - iconSize: logo大小。头像大小不能大于画布的1/4 （这个大小之内的不会遮挡二维码的有效信息）
+    /// - Returns:
     func handleIcon(_ icon: CGImage, iconSize: CGSize) -> UIImage? {
         //logo的绘制区域
         let areaRect = CGRect(x: 0, y: 0, width: iconSize.width, height: iconSize.height)
@@ -250,21 +263,20 @@ class QRCodeGenerator: NSObject {
 //        let innerWidth = outerWidth / 10
         ///外边框总宽度。可见宽度为: outerWidth - innerWidth
         let outerWidth: CGFloat = 8
-        let innerWidth: CGFloat = 1
+        let innerWidth: CGFloat = 2
         
         let outerOrigin = outerWidth / 2.0
-        let innerOrigin = innerWidth / 2.0
+        let innerOrigin = outerWidth - innerWidth / 2.0
         //绘制外边框的rect
         let outerRect = areaRect.insetBy(dx: outerOrigin, dy: outerOrigin)
         //绘制内边框的rect
-        let innerRect = outerRect.insetBy(dx: innerOrigin, dy: innerOrigin)
+        let innerRect = areaRect.insetBy(dx: innerOrigin, dy: innerOrigin)
         
+        //let areaCorner = CGSize(width: iconSize.width / 5, height: iconSize.width / 5)
         //外边框圆角
         let size1 = CGSize(width: outerRect.size.width/5.0, height: outerRect.size.width/5.0)
         //内边框圆角
         let size2 = CGSize(width: innerRect.size.width/5.0, height: innerRect.size.width/5.0)
-        
-        
         
         let image = clipIcon(cgIcon: icon, areaRect: areaRect,
                  outerRect: outerRect, outerWidth: outerWidth, cornerRadii: size1, outerColor: .white,
@@ -272,91 +284,6 @@ class QRCodeGenerator: NSObject {
         
         return image
     }
-    
-    /// 处理logo图片，添加圆角、描边
-    /// - Parameters:
-    ///   - iconImage: logo
-    ///   - iconSize: logo大小。头像大小不能大于画布的1/4 （这个大小之内的不会遮挡二维码的有效信息）
-    /// - Returns:
-    private func clipIcon(_ icon: UIImage, iconSize: CGSize) -> UIImage? {
-        guard let cgIcon = icon.cgImage else { return nil }
-        
-//        let outerWidth = iconSize.width / 15.0
-//        let innerWidth = outerWidth / 2 //10
-        
-        ///外边框总宽度。可见宽度为: outerWidth - innerWidth
-        let outerWidth: CGFloat = 8
-        let innerWidth: CGFloat = 1
-        let cornerRadius = iconSize.width / 5 //5
-        /*注意⚠️:
-         贝塞尔曲线的cornerRadii明明设置的是圆角，
-         传一个CGFloat就够了，为啥要传CGSize，了解一下原理
-         */
-        
-        //logo的绘制区域
-        let areaRect = CGRect(x: 0, y: 0, width: iconSize.width, height: iconSize.height)
-        let areaPath = UIBezierPath(roundedRect: areaRect, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
-        
-        let outerOrigin = outerWidth / 2.0
-        let innerOrigin = innerWidth / 2.0 //+ outerOrigin / 1.2
-        let outerRect = areaRect.insetBy(dx: outerOrigin, dy: outerOrigin)
-        let innerRect = outerRect.insetBy(dx: innerOrigin, dy: innerOrigin)
-        //外层path
-        //let size1 = CGSize(width: outerRect.size.width/5.0, height: outerRect.size.width/5.0)
-        let size1 = CGSize(width: cornerRadius, height: cornerRadius)
-        let outerPath = UIBezierPath(roundedRect: outerRect, byRoundingCorners: .allCorners, cornerRadii: size1)
-        //内层path
-        let size2 = CGSize(width: innerRect.size.width/5.0, height: innerRect.size.width/5.0)
-        let innerPath = UIBezierPath(roundedRect: innerRect, byRoundingCorners: .allCorners, cornerRadii: size2)
-        //设置画布信息
-        UIGraphicsBeginImageContextWithOptions(iconSize, false, UIScreen.main.scale)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        // 开启画布
-        context.saveGState()
-        // 翻转context
-        //注意⚠️: 如果不翻转，画出来的logo是倒的。这里需要了解一下画布原理及坐标
-        context.translateBy(x: 0, y: iconSize.height)
-        context.scaleBy(x: 1, y: -1)
-        // 1.先对画布进行裁切 (裁不裁剪都没影响，研究一下裁剪到底是干了啥)
-        /*
-         注意⚠️: 这里要么不裁剪，要么只能裁areaPath。如果裁outerPath的话，外边框就显示不出来了。
-         */
-        context.addPath(areaPath.cgPath)
-        //context.addPath(outerPath.cgPath)
-        context.clip()
-        // 2.填充背景颜色。
-        /*注意⚠️: 填充颜色的区域如果用areaPath的话,
-         会导致填充的颜色漏出一点，就算设置outerPath和areaPath的圆角一样，也会漏出来
-         fillPath的圆角和strokePath的圆角，不一样。做个demo和UIView的圆角比一下，看那个正确。
-        */
-        //context.addPath(areaPath.cgPath)
-        context.addPath(outerPath.cgPath)
-        let fillColor = UIColor.red
-        context.setFillColor(fillColor.cgColor)
-        context.fillPath()
-        // 3.执行绘制logo
-        context.draw(cgIcon, in: innerRect)
-        // 4.添加并绘制白色边框
-        context.addPath(outerPath.cgPath)
-        context.setStrokeColor(UIColor.white.cgColor)
-        context.setLineWidth(outerWidth)
-        context.strokePath()
-        // 5.白色边框的基础上进行绘制黑色分割线
-        context.addPath(innerPath.cgPath)
-        context.setStrokeColor(UIColor.black.cgColor)
-        context.setLineWidth(innerWidth)
-        context.strokePath()
-        // 提交画布
-        context.restoreGState()
-        
-        // 从画布中提取图片
-        let radiusImage = UIGraphicsGetImageFromCurrentImageContext()
-        // 释放画布
-        UIGraphicsEndImageContext()
-        return radiusImage
-    }
-    
-    
     
     
     private func clipIcon(cgIcon: CGImage, areaRect: CGRect,
@@ -371,10 +298,6 @@ class QRCodeGenerator: NSObject {
         //let areaRect = CGRect(x: 0, y: 0, width: iconSize.width, height: iconSize.height)
         let areaPath = UIBezierPath(roundedRect: areaRect, byRoundingCorners: .allCorners, cornerRadii: cornerRadii)
         
-//        let outerOrigin = outerWidth / 2.0
-//        let innerOrigin = innerWidth / 2.0
-//        let outerRect = areaRect.insetBy(dx: outerOrigin, dy: outerOrigin)
-//        let innerRect = outerRect.insetBy(dx: innerOrigin, dy: innerOrigin)
         //外层path
         let outerPath = UIBezierPath(roundedRect: outerRect, byRoundingCorners: .allCorners, cornerRadii: cornerRadii)
         //内层path

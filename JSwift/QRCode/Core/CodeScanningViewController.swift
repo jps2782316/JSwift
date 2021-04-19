@@ -15,8 +15,6 @@ class CodeScanningViewController: UIViewController {
     var scanSuccessed: ((_ results: [String]?) -> Void)?
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()

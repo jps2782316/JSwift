@@ -27,7 +27,7 @@ extension QRCode {
         /// 圆
         case circle
     }
-
+    
     enum GradientType {
         /// 纯色
         case none(_ color: UIColor)
@@ -79,15 +79,42 @@ extension QRCode {
     
 }
 
-
-
-
 class QRCode {
+    ///纠错级别: 默认高
+    var correctionLevel: CorrectionLevel = .hight
+    
+    
+    /// 文本
+    var content: String
+    /// 二维码中间的logo
+    var icon: UIImage?
+    /// logo大小，默认二维码的1/4
+    var iconScale: CGFloat = 0.25
+    /// 二维码颜色
+    var color: UIColor
+    /// 背景色
+    var bgColor: UIColor
+    
+    init(content: String, icon: UIImage?, iconScale: CGFloat = 0.25, color: UIColor = .black, bgColor: UIColor = .white) {
+        self.content = content
+        self.icon = icon
+        self.iconScale = iconScale
+        self.color = color
+        self.bgColor = bgColor
+    }
+}
+
+
+
+/*
+class QRCode {
+    
+    
     
     /// 文本
     var text: String
     /// 二维码中间的logo
-    var icon: UIImage?
+    //var icon: UIImage?
     var logo: Logo?
     
     ///纠错级别
@@ -125,48 +152,49 @@ class GradientQRCode {
 
 
 class Logo {
-    //typealias LogoBorder = (color: UIColor, width: ValueStyle, corner: ValueStyle)
-    typealias Border = (color: UIColor, width: CGFloat, corner: CGFloat)
     
+    enum ValueStyle {
+        case fix(_ value: CGFloat)
+        case scale(_ scale: CFloat)
+    }
     
+    struct Border {
+        ///边框颜色
+        var color: UIColor
+        /*
+         边款宽度。默认为logoSize的1/15
+         如果为外边框时，可见宽度为: outerWidth - innerWidth
+         */
+        var width: ValueStyle = .scale(1/15)
+        ///边框圆角 (默认为边框宽度的1/5)
+        var corner: ValueStyle = .scale(1/2)
+    }
+    
+    ///logo图片
     var image: UIImage
-    ///绘制logo时的填充色，logo带透明度时，就能看到这个颜色
-    var fillColor: UIColor?
-    
     ///logo大小，默认为二维码大小的1/4
     var size: ValueStyle = .scale(0.25)
     
     ///外边框
-    var outerBorder: Border? = Border(color: .white, width: 8, corner: 2)
+    var outerBorder: Border?
     ///那边框
     var innerBorder: Border?
     
-    
-    
-//    ///外边框颜色
-//    var outerColor: UIColor?
-//    ///外边款总宽度。可见宽度为: outerWidth - innerWidth
-//    var outerWidth: CGFloat = 8
-//    ///外边框圆角
-//    var outerCorner: CGFloat = 4
-//
-//
-//    var width: ValueStyle = .fix(8)
-//    var corner: ValueStyle = .scale(1/5)
+    ///绘制logo时的填充色，logo带透明度时，就能看到这个颜色
+    var fillColor: UIColor?
     
     
     
     
-    init(image: UIImage) {
+    init(image: UIImage, size: ValueStyle = .scale(0.25), outerBorder: Border? = nil, innerBorder: Border? = nil, fillColor: UIColor? = nil) {
         self.image = image
-        //outerBorder?.width
+        self.size = size
+        self.outerBorder = outerBorder
+        self.innerBorder = innerBorder
+        self.fillColor = fillColor
     }
     
 }
 
-
-enum ValueStyle {
-    case fix(_ value: CGFloat)
-    case scale(_ scale: CFloat)
-}
+*/
 

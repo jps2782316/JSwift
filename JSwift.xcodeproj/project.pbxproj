@@ -28,6 +28,7 @@
 		A05E909D26296082006EEAD8 /* icon_back_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A05E909B26296082006EEAD8 /* icon_back_white@2x.png */; };
 		A05E90AA2629629C006EEAD8 /* QRCodeScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E90A92629629C006EEAD8 /* QRCodeScanner.swift */; };
 		A05E90B22629664D006EEAD8 /* CodeScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E90B12629664D006EEAD8 /* CodeScanningViewController.swift */; };
+		A0686783262D7E3300CA91B0 /* TableViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0686782262D7E3300CA91B0 /* TableViewViewController.swift */; };
 		A0973346261C0779007CC582 /* WatermarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973345261C0779007CC582 /* WatermarkMode.swift */; };
 		A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */; };
 		A0973353261C0822007CC582 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973352261C0822007CC582 /* CGImage+Extension.swift */; };
@@ -98,6 +99,7 @@
 		A05E909B26296082006EEAD8 /* icon_back_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_back_white@2x.png"; sourceTree = "<group>"; };
 		A05E90A92629629C006EEAD8 /* QRCodeScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScanner.swift; sourceTree = "<group>"; };
 		A05E90B12629664D006EEAD8 /* CodeScanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScanningViewController.swift; sourceTree = "<group>"; };
+		A0686782262D7E3300CA91B0 /* TableViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewViewController.swift; sourceTree = "<group>"; };
 		A0973345261C0779007CC582 /* WatermarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermarkMode.swift; sourceTree = "<group>"; };
 		A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator2.swift; sourceTree = "<group>"; };
 		A0973352261C0822007CC582 /* CGImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extension.swift"; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		A002F133260883C900FDEC02 /* JSwift */ = {
 			isa = PBXGroup;
 			children = (
+				A0686781262D7E0D00CA91B0 /* New Group1 */,
 				A0CD44D2262419BE009753E6 /* ContextMenuInteraction */,
 				A054957C2616CBE800C6AB0B /* QRCode */,
 				A09940372608CB7400D33D17 /* New Group */,
@@ -251,7 +254,6 @@
 				A0973344261C0755007CC582 /* New Group */,
 				A05E90B12629664D006EEAD8 /* CodeScanningViewController.swift */,
 				A05495872616CC1600C6AB0B /* QRCodeUtil.swift */,
-				A097335D261C486E007CC582 /* QRCode.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -278,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				A0CA133426280943001465F5 /* CIImage+Pixcels.swift */,
+				A097335D261C486E007CC582 /* QRCode.swift */,
 				A05495E32619A32E00C6AB0B /* QRCodeGenerator.swift */,
 				0930A519261CBC690055DF16 /* QRCodeGenerator+Extension.swift */,
 				A0973384261DA8D3007CC582 /* QRCodeGenerator+Others.swift */,
@@ -291,6 +294,14 @@
 				A05495DE2619A25000C6AB0B /* QRCodeRecognizer.swift */,
 			);
 			path = Recognizer;
+			sourceTree = "<group>";
+		};
+		A0686781262D7E0D00CA91B0 /* New Group1 */ = {
+			isa = PBXGroup;
+			children = (
+				A0686782262D7E3300CA91B0 /* TableViewViewController.swift */,
+			);
+			path = "New Group1";
 			sourceTree = "<group>";
 		};
 		A0973344261C0755007CC582 /* New Group */ = {
@@ -484,6 +495,7 @@
 				A002F17F2608A20300FDEC02 /* ProtocolViewController.swift in Sources */,
 				A002F139260883C900FDEC02 /* ViewController.swift in Sources */,
 				0930A51A261CBC690055DF16 /* QRCodeGenerator+Extension.swift in Sources */,
+				A0686783262D7E3300CA91B0 /* TableViewViewController.swift in Sources */,
 				A0CD451126256A8D009753E6 /* ChatTextCell.swift in Sources */,
 				A0CD44DF26244179009753E6 /* ContextMenuViewController1.swift in Sources */,
 				A0CD44ED262467E5009753E6 /* ImageCell.swift in Sources */,

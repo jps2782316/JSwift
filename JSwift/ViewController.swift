@@ -11,6 +11,7 @@ enum DataType: String {
     case generics = "Generics"
     case `protocol` = "Protocol"
     case other = "Other"
+    case tableView = "tableView"
 }
 
 
@@ -18,7 +19,7 @@ enum DataType: String {
 class ViewController: UIViewController {
     
     private lazy var dataSource: [DataType] = {
-        let arr: [DataType] = [.generics, .protocol, .other]
+        let arr: [DataType] = [.generics, .protocol, .other, .tableView]
         return arr
     }()
 
@@ -70,6 +71,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
             //let vc = CommonViewController()
             //self.navigationController?.pushViewController(vc, animated: true)
+        case .tableView:
+            let vc = TableViewViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
