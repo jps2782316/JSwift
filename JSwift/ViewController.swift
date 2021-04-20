@@ -72,7 +72,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             //let vc = CommonViewController()
             //self.navigationController?.pushViewController(vc, animated: true)
         case .tableView:
-            let vc = TableViewViewController()
+            let vc = TableCustomIndexViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

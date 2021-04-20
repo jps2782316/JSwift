@@ -1,26 +1,21 @@
 //
-//  TableViewViewController.swift
+//  TableCustomIndexViewController.swift
 //  JSwift
 //
-//  Created by jps on 2021/4/19.
+//  Created by jps on 2021/4/20.
 //
 
 import UIKit
 
-/*
- 超简单实现iOS列表的索引功能
- https://juejin.cn/post/6844903550506500104
- */
+class TableCustomIndexViewController: UIViewController {
 
-class TableViewViewController: UIViewController {
-    
     var tableView: UITableView!
     
+    var indexView: SectionIndexView!
     
     var indexs: [String] = []
     var dataSource: [[String]] = []
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchdata()
@@ -39,46 +34,32 @@ class TableViewViewController: UIViewController {
             }
             dataSource.append(arr)
         }
-    }
-    
-    ///根据数据源获得索引    实现索引数组的自动更新
-    private func getIndexs(dataSource: [String]) -> [String] {
-        var arr: [String] = []
-        for str in dataSource {
-            if let c = str.first {
-                let s = String(c)
-                if !arr.contains(s) {
-                    arr.append(s)
-                }
-            }
-        }
-        return arr
+        let searchStr = UITableView.indexSearch
+        indexs.insert(contentsOf: [searchStr, "1", "2", "3"], at: 0)
     }
     
     private func setUI() {
         self.view.backgroundColor = .red
-        
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.autoresizingMask = .flexibleHeight
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
-        
-        tableView.sectionIndexMinimumDisplayRowCount = 1
-        //索引颜色
-        tableView.sectionIndexColor = .blue
-        //索引选中时的颜色
-        tableView.sectionIndexTrackingBackgroundColor = .yellow
-        //索引背景色
-        tableView.sectionIndexBackgroundColor = .cyan
         view.addSubview(tableView)
+        
+        let config = SectionIndexConfig(indexItem: .defualt, indicator: .defualt)
+        indexView = SectionIndexView(config: config, tableView: tableView)
+        indexView.frame = self.view.bounds
+        self.view.addSubview(indexView)
+        indexView.indexs = indexs
     }
-    
+
 }
 
 
-extension TableViewViewController: UITableViewDataSource {
+
+extension TableCustomIndexViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return dataSource.count
@@ -100,27 +81,5 @@ extension TableViewViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return indexs[section]
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    
-    
-    // 索引目录
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return indexs
-    }
-    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        print("index: \(index), title: \(title)")
-        return index
-    }
-    
-    
-    
-}
-
-
-extension TableViewViewController: UITableViewDelegate {
     
 }

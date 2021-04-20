@@ -143,4 +143,7 @@ class CommonViewController: UIViewController {
     //https://www.cnswift.org/attributes
     
     
+    //---------------- 。。 ----------------
+    //view设置isHidden，取alpha是否为0。或者设置alpha为0，取isHidden是否为true
+    
 }
