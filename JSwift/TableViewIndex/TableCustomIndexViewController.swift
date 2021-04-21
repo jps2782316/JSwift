@@ -11,7 +11,7 @@ class TableCustomIndexViewController: UIViewController {
 
     var tableView: UITableView!
     
-    var indexView: SectionIndexView!
+    var indexView: TableViewIndex!
     
     var indexs: [String] = []
     var dataSource: [[String]] = []
@@ -35,7 +35,8 @@ class TableCustomIndexViewController: UIViewController {
             dataSource.append(arr)
         }
         let searchStr = UITableView.indexSearch
-        indexs.insert(contentsOf: [searchStr, "1", "2", "3"], at: 0)
+        indexs.insert(searchStr, at: 0)
+        //indexs.insert(contentsOf: [searchStr], at: 0)
     }
     
     private func setUI() {
@@ -48,14 +49,35 @@ class TableCustomIndexViewController: UIViewController {
         tableView.tableFooterView = UIView()
         view.addSubview(tableView)
         
-        let config = SectionIndexConfig(indexItem: .defualt, indicator: .defualt)
-        indexView = SectionIndexView(config: config, tableView: tableView)
+        
+        //索引
+        let config = SectionIndexConfig(indexItem: .defualt, indicator: .defualt(style: .defualt))
+        indexView = TableViewIndex(config: config, tableView: tableView)
+        //indexView.delegate = self
         indexView.frame = self.view.bounds
         self.view.addSubview(indexView)
         indexView.indexs = indexs
+        
+        //indexView.refreshCurrentSection()
     }
 
 }
+
+
+
+
+//extension TableCustomIndexViewController: SectionIndexViewDelegate {
+//    func sectionIndexView(_ indexView: SectionIndexView, didSelectSectionAt section: Int) {
+//
+//    }
+//
+//    func sectionOfIndexView(_ indexView: SectionIndexView, tableViewDidScroll tableView: UITableView) -> Int {
+//        return 0
+//    }
+//
+//
+//}
+
 
 
 
@@ -82,4 +104,8 @@ extension TableCustomIndexViewController: UITableViewDataSource, UITableViewDele
         return indexs[section]
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let rect = tableView.rect(forSection: 2)
+        print("\(rect)")
+    }
 }

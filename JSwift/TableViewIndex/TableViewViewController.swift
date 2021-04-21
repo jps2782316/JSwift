@@ -10,6 +10,16 @@ import UIKit
 /*
  超简单实现iOS列表的索引功能
  https://juejin.cn/post/6844903550506500104
+ 
+ 另一个五百多星的库swift
+ https://github.com/mindz-eye/MYTableViewIndex
+ 
+ 你要找索引相关的东西，你就实现系统的索引，看系统索引是什么类，比如tableview的索引类为UITableViewIndex，然后去google上搜就行了。
+ */
+
+/*
+ 自定义UITableViewIndex
+ https://www.jianshu.com/p/f598122056fb
  */
 
 
@@ -86,7 +96,6 @@ class TableViewViewController: UIViewController {
         tableView.sectionIndexBackgroundColor = .cyan
         view.addSubview(tableView)
         
-        
     }
     
 }
@@ -121,10 +130,13 @@ extension TableViewViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     
-    // 索引目录
+    
+    // return list of section titles to display in section index view (e.g. "ABCD...Z#")
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return indexs
     }
+    //tell table which section corresponds to section title/index (e.g. "B",1))
+    //提供tableView的section和索引Index的对应关系
     func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         print("index: \(index), title: \(title)")
         return index
@@ -135,3 +147,13 @@ extension TableViewViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 
+/*
+ 索引功能，及实现逻辑:
+ 指示器
+ 滑动/点击索引，滚动tableview到相应位置
+ 滑动tableview，选中相应索引
+ 索引震动反馈
+ 索引支持图片、文字。(搜索、文字、自定义image)
+ 
+ 自定义索引列表背景
+ */

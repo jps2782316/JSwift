@@ -65,12 +65,23 @@ class Indicator {
         self.cornerRadius = cornerRadius
     }
     
-    
-    static var defualt: Indicator {
-        let indicator = Indicator(style: .defualt, bgColor: UIColor.lightGray, textColor: .white, textFont: UIFont.systemFont(ofSize: 17), height: 40, rightMargin: 20, cornerRadius: 20)
+    static func defualt(style: IndicatorStyle) -> Indicator {
+        var backgroundColor: UIColor
+        var font: UIFont
+        var height: CGFloat
+        switch style {
+        case .defualt:
+            backgroundColor = UIColor.lightGray
+            font = UIFont.systemFont(ofSize: 38)
+            height = 50
+        case .toast:
+            backgroundColor = UIColor.lightGray.withAlphaComponent(0.7)
+            font = UIFont.systemFont(ofSize: 60)
+            height = 120
+        }
+        let indicator = Indicator(style: style, bgColor: backgroundColor, textColor: .white, textFont: font, height: height, rightMargin: 40, cornerRadius: 10)
         return indicator
     }
-    
     
 }
 
@@ -109,7 +120,7 @@ struct IndexItem {
     
     
     static var defualt: IndexItem {
-        let indexItem = IndexItem(bgColor: .clear, selectedBgColor: .green, textColor: .gray, selectedTextColor: .white, textFont: UIFont.systemFont(ofSize: 10), selectedTextFont: nil, height: 30, rightMargin: 20, spacing: 10)
+        let indexItem = IndexItem(bgColor: .clear, selectedBgColor: .green, textColor: .gray, selectedTextColor: .white, textFont: UIFont.systemFont(ofSize: 12), selectedTextFont: nil, height: 15, rightMargin: 5, spacing: 0)
         return indexItem
     }
 }

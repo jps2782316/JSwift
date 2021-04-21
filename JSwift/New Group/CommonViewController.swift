@@ -146,4 +146,7 @@ class CommonViewController: UIViewController {
     //---------------- 。。 ----------------
     //view设置isHidden，取alpha是否为0。或者设置alpha为0，取isHidden是否为true
     
+    
+    //---------------- runtime原理、运用场景，Swizzle Method ----------------
+    //objc_getAssociatedObject
 }

@@ -30,8 +30,10 @@
 		A05E90B22629664D006EEAD8 /* CodeScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05E90B12629664D006EEAD8 /* CodeScanningViewController.swift */; };
 		A0686783262D7E3300CA91B0 /* TableViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0686782262D7E3300CA91B0 /* TableViewViewController.swift */; };
 		A068678C262E794C00CA91B0 /* IndexConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068678B262E794C00CA91B0 /* IndexConfig.swift */; };
-		A0686795262E79BA00CA91B0 /* SectionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0686794262E79BA00CA91B0 /* SectionIndexView.swift */; };
+		A0686795262E79BA00CA91B0 /* TableViewIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0686794262E79BA00CA91B0 /* TableViewIndex.swift */; };
 		A06867AB262F000400CA91B0 /* TableCustomIndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06867AA262F000400CA91B0 /* TableCustomIndexViewController.swift */; };
+		A06867B0262FB72400CA91B0 /* TableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06867AF262FB72400CA91B0 /* TableView+Extension.swift */; };
+		A06867C3262FF8C000CA91B0 /* TableViewIndex+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06867C2262FF8C000CA91B0 /* TableViewIndex+Event.swift */; };
 		A0973346261C0779007CC582 /* WatermarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973345261C0779007CC582 /* WatermarkMode.swift */; };
 		A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */; };
 		A0973353261C0822007CC582 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973352261C0822007CC582 /* CGImage+Extension.swift */; };
@@ -104,8 +106,10 @@
 		A05E90B12629664D006EEAD8 /* CodeScanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScanningViewController.swift; sourceTree = "<group>"; };
 		A0686782262D7E3300CA91B0 /* TableViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewViewController.swift; sourceTree = "<group>"; };
 		A068678B262E794C00CA91B0 /* IndexConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexConfig.swift; sourceTree = "<group>"; };
-		A0686794262E79BA00CA91B0 /* SectionIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionIndexView.swift; sourceTree = "<group>"; };
+		A0686794262E79BA00CA91B0 /* TableViewIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewIndex.swift; sourceTree = "<group>"; };
 		A06867AA262F000400CA91B0 /* TableCustomIndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCustomIndexViewController.swift; sourceTree = "<group>"; };
+		A06867AF262FB72400CA91B0 /* TableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+Extension.swift"; sourceTree = "<group>"; };
+		A06867C2262FF8C000CA91B0 /* TableViewIndex+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableViewIndex+Event.swift"; sourceTree = "<group>"; };
 		A0973345261C0779007CC582 /* WatermarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermarkMode.swift; sourceTree = "<group>"; };
 		A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator2.swift; sourceTree = "<group>"; };
 		A0973352261C0822007CC582 /* CGImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extension.swift"; sourceTree = "<group>"; };
@@ -305,20 +309,46 @@
 		A0686781262D7E0D00CA91B0 /* TableViewIndex */ = {
 			isa = PBXGroup;
 			children = (
-				A0686793262E795C00CA91B0 /* Core */,
+				A0686793262E795C00CA91B0 /* TableViewIndex */,
 				A0686782262D7E3300CA91B0 /* TableViewViewController.swift */,
 				A06867AA262F000400CA91B0 /* TableCustomIndexViewController.swift */,
 			);
 			path = TableViewIndex;
 			sourceTree = "<group>";
 		};
-		A0686793262E795C00CA91B0 /* Core */ = {
+		A0686793262E795C00CA91B0 /* TableViewIndex */ = {
+			isa = PBXGroup;
+			children = (
+				A06867CA262FFA1200CA91B0 /* ItemConfig */,
+				A06867CB262FFA2700CA91B0 /* ItemView */,
+				A06867CC262FFA4900CA91B0 /* Index */,
+				A06867AF262FB72400CA91B0 /* TableView+Extension.swift */,
+			);
+			path = TableViewIndex;
+			sourceTree = "<group>";
+		};
+		A06867CA262FFA1200CA91B0 /* ItemConfig */ = {
 			isa = PBXGroup;
 			children = (
 				A068678B262E794C00CA91B0 /* IndexConfig.swift */,
-				A0686794262E79BA00CA91B0 /* SectionIndexView.swift */,
 			);
-			path = Core;
+			path = ItemConfig;
+			sourceTree = "<group>";
+		};
+		A06867CB262FFA2700CA91B0 /* ItemView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ItemView;
+			sourceTree = "<group>";
+		};
+		A06867CC262FFA4900CA91B0 /* Index */ = {
+			isa = PBXGroup;
+			children = (
+				A0686794262E79BA00CA91B0 /* TableViewIndex.swift */,
+				A06867C2262FF8C000CA91B0 /* TableViewIndex+Event.swift */,
+			);
+			path = Index;
 			sourceTree = "<group>";
 		};
 		A0973344261C0755007CC582 /* New Group */ = {
@@ -510,6 +540,7 @@
 			files = (
 				A002F16A2608844000FDEC02 /* GenericsViewController.swift in Sources */,
 				A002F17F2608A20300FDEC02 /* ProtocolViewController.swift in Sources */,
+				A06867C3262FF8C000CA91B0 /* TableViewIndex+Event.swift in Sources */,
 				A002F139260883C900FDEC02 /* ViewController.swift in Sources */,
 				0930A51A261CBC690055DF16 /* QRCodeGenerator+Extension.swift in Sources */,
 				A0686783262D7E3300CA91B0 /* TableViewViewController.swift in Sources */,
@@ -537,10 +568,11 @@
 				A05E90AA2629629C006EEAD8 /* QRCodeScanner.swift in Sources */,
 				A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */,
 				A05495882616CC1600C6AB0B /* QRCodeUtil.swift in Sources */,
-				A0686795262E79BA00CA91B0 /* SectionIndexView.swift in Sources */,
+				A0686795262E79BA00CA91B0 /* TableViewIndex.swift in Sources */,
 				A05495E42619A32E00C6AB0B /* QRCodeGenerator.swift in Sources */,
 				A0CA13402628590A001465F5 /* QRCodeScanningPreview.swift in Sources */,
 				A06867AB262F000400CA91B0 /* TableCustomIndexViewController.swift in Sources */,
+				A06867B0262FB72400CA91B0 /* TableView+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

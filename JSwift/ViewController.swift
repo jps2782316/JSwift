@@ -72,9 +72,25 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             //let vc = CommonViewController()
             //self.navigationController?.pushViewController(vc, animated: true)
         case .tableView:
+            //let vc = TableViewViewController()
             let vc = TableCustomIndexViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
 }
+
+
+
+
+/*
+ 启动页:
+ 启动页方式: LaunchScreen, LaunchImage https://juejin.cn/post/6844904064560398349
+ 启动页上直接放gif是否可以
+ 启动页执行部分业务逻辑
+ 启动页显示动画，lottie、svga、代码动画、视频
+ 启动页显示版本号: https://www.hangge.com/blog/cache/detail_1793.html
+ 启动页放大淡出: https://www.hangge.com/blog/cache/detail_1247.html
+ 
+ LaunchScreen里不能为vc添加一个自定义类，但是直接把LaunchScreen换成其他storyboard，是不是就可以。
+ */
