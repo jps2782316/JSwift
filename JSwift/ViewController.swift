@@ -68,7 +68,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(vc, animated: true)
             //vc.modalPresentationStyle = .fullScreen
             //self.present(vc, animated: true, completion: nil)
-        
+            
             //let vc = CommonViewController()
             //self.navigationController?.pushViewController(vc, animated: true)
         case .tableView:
@@ -93,4 +93,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
  启动页放大淡出: https://www.hangge.com/blog/cache/detail_1247.html
  
  LaunchScreen里不能为vc添加一个自定义类，但是直接把LaunchScreen换成其他storyboard，是不是就可以。
+ */
+
+
+
+/*
+ 导航栏:
+ navigationItem、navigationController?.navigationBar、navigationController?.navigationItem的区别
+ navigationController.navigationBar.translucent = false/true时，对tableView的影响。对self.view的frame的影响
+ 
  */

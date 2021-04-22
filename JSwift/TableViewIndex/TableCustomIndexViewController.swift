@@ -11,7 +11,7 @@ class TableCustomIndexViewController: UIViewController {
 
     var tableView: UITableView!
     
-    var indexView: TableViewIndex!
+    var indexView: TableViewIndex22!
     
     var indexs: [String] = []
     var dataSource: [[String]] = []
@@ -36,29 +36,34 @@ class TableCustomIndexViewController: UIViewController {
         }
         let searchStr = UITableView.indexSearch
         indexs.insert(searchStr, at: 0)
-        //indexs.insert(contentsOf: [searchStr], at: 0)
     }
     
     private func setUI() {
         self.view.backgroundColor = .red
+        navigationController?.navigationBar.isTranslucent = false
+        
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.autoresizingMask = .flexibleHeight
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
+        tableView.tableHeaderView = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 60))
         view.addSubview(tableView)
         
         
         //索引
         let config = SectionIndexConfig(indexItem: .defualt, indicator: .defualt(style: .defualt))
-        indexView = TableViewIndex(config: config, tableView: tableView)
+        indexView = TableViewIndex22(config: config, tableView: tableView)
         //indexView.delegate = self
-        indexView.frame = self.view.bounds
+        indexView.frame = CGRect(x: view.bounds.width - 44, y: 0, width: 44, height: view.bounds.height)
         self.view.addSubview(indexView)
         indexView.indexs = indexs
         
-        //indexView.refreshCurrentSection()
+        let isTranslucent = navigationController?.navigationBar.isTranslucent
+        indexView.isTranslucentNavi = isTranslucent ?? false
+        
+        
     }
 
 }
@@ -105,6 +110,7 @@ extension TableCustomIndexViewController: UITableViewDataSource, UITableViewDele
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        indexView.refreshCurrentSection()
         let rect = tableView.rect(forSection: 2)
         print("\(rect)")
     }

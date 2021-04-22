@@ -80,6 +80,7 @@ class TableViewViewController: UIViewController {
     private func setUI() {
         self.view.backgroundColor = .red
         
+        
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
@@ -155,5 +156,7 @@ extension TableViewViewController: UITableViewDataSource, UITableViewDelegate {
  索引震动反馈
  索引支持图片、文字。(搜索、文字、自定义image)
  
+ 阿语RTL布局适配
+ 键盘弹起，变成点，像系统联系人那样
  自定义索引列表背景
  */

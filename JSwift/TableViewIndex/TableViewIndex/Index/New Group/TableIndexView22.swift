@@ -1,5 +1,5 @@
 //
-//  SectionIndexView.swift
+//  TableViewIndex22.swift
 //  JSwift
 //
 //  Created by jps on 2021/4/20.
@@ -10,7 +10,7 @@ import UIKit
 
 
 
-extension TableViewIndex {
+extension TableViewIndex22 {
     
     ///每个item的高度:  item的height + 两个item之间的间距
     var kIndexViewSpace: CGFloat {
@@ -69,7 +69,7 @@ extension TableViewIndex {
 }
 
 
-class TableViewIndex: UIControl {
+class TableViewIndex22: UIControl {
     
     //weak var delegate: SectionIndexViewDelegate?
     
@@ -118,6 +118,12 @@ class TableViewIndex: UIControl {
     weak var tableView: UITableView!
     
     
+    ///索引内容视图
+    var indexView: IndexView!
+    ///索引背景
+    var backgroundView: UIView!
+    
+    
     
     // 触感反馈
     private lazy var feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -127,14 +133,25 @@ class TableViewIndex: UIControl {
         self.config = config
         self.tableView = tableView
         super.init(frame: .zero)
-        if let indicatorConfig = config.indicator {
-            indicatorView = createIndicatorView(indicator: indicatorConfig)
-            self.addSubview(indicatorView!)
-        }
+        setUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
+    private func setUI() {
+        indexView = IndexView(frame: .zero)
+        self.addSubview(indexView)
+        backgroundView = IndexBackgroudView()
+        self.insertSubview(backgroundView, at: 0)
+        
+        if let indicatorConfig = config.indicator {
+            indicatorView = createIndicatorView(indicator: indicatorConfig)
+            self.addSubview(indicatorView!)
+        }
     }
     
     
@@ -149,42 +166,7 @@ class TableViewIndex: UIControl {
         }
     }
     
-    /*
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        
-        let indexItem = config.indexItem
-        let space = indexItem.height + indexItem.spacing
-        let margin = (bounds.size.height - space * CGFloat(indexs.count)) / 2.0
-        
-        if let searchLayer = self.searchLayer, !searchLayer.isHidden {
-            let x = bounds.size.width - indexItem.rightMargin - indexItem.height
-            let y = getTextLayerCenterY(position: 0, margin: margin, spacing: space) - indexItem.height / 2.0
-            searchLayer.frame = CGRect(x: x, y: y, width: indexItem.height, height: indexItem.height)
-            searchLayer.cornerRadius = indexItem.height / 2.0
-            searchLayer.contentsScale = UIScreen.main.scale
-            searchLayer.backgroundColor = indexItem.bgColor.cgColor
-        }
-        
-        let deta = (searchLayer == nil) ? 1 : 0
-        for (i, textLayer) in subTextLayers.enumerated() {
-            let section = i + deta
-            let x = bounds.size.width - indexItem.rightMargin - indexItem.height
-            let y = getTextLayerCenterY(position: CGFloat(section), margin: margin, spacing: space) - indexItem.height / 2.0
-            textLayer.frame = CGRect(x: x, y: y, width: indexItem.height, height: indexItem.height)
-        }
-        
-        CATransaction.commit()
-    }*/
-    
-    
-    
-    
-    
-    //MARK: --------------------- 配置子控件 ---------------------
+    //MARK: --------------------- 创建子控件 ---------------------
     
     ///根据数据源，创建itemLayers
     private func setupItemLayers() {
@@ -208,7 +190,7 @@ class TableViewIndex: UIControl {
         if countDifference > 0 { //layer少了，创建layer
             for _ in 0..<countDifference {
                 let textLayer = TextItemLayer()
-                self.layer.addSublayer(textLayer)
+                //self.layer.addSublayer(textLayer)
                 itemLayers.append(textLayer)
             }
         }else {
@@ -223,6 +205,7 @@ class TableViewIndex: UIControl {
         CATransaction.setDisableActions(true)
         
         let indexItem = config.indexItem
+        
         //3. 设置layer的frame和其他属性
         if hasSearch {
             let x = bounds.size.width - indexItem.rightMargin - indexItem.height
@@ -235,9 +218,6 @@ class TableViewIndex: UIControl {
         
         for (i, textLayer) in itemLayers.enumerated() {
             let section = i + deta
-            let x = bounds.size.width - indexItem.rightMargin - indexItem.height
-            let y = getTextLayerCenterY(index: CGFloat(section), firstItemY: kIndexViewMargin, perItemH: kIndexViewSpace) - indexItem.height / 2
-            textLayer.frame = CGRect(x: x, y: y, width: indexItem.height, height: indexItem.height)
             textLayer.string = indexs[section]
             textLayer.itemFont = indexItem.textFont
             textLayer.cornerRadius = indexItem.height / 2.0
@@ -247,16 +227,13 @@ class TableViewIndex: UIControl {
             textLayer.foregroundColor = indexItem.textColor.cgColor
         }
         
-        CATransaction.commit()
-        /*
-        if itemLayers.count == 0 {
-            currentSection = Int.max
-        }else if currentSection == Int.max {
-            currentSection = (searchLayer == nil) ? 0 : kSearchSection
-        }else {
-            currentSection = itemLayers.count - 1
-        }*/
+        let layout = Layout(items: itemLayers, config: config, bounds: self.bounds)
+        indexView.frame = layout.contentFrame
+        backgroundView.frame = layout.backgroundFrame
+        indexView.addItmes(itemLayers)
         
+        
+        CATransaction.commit()
     }
     
     
@@ -272,17 +249,6 @@ class TableViewIndex: UIControl {
         //1. 找出tableView显示的是第几个section
         guard let firstVisibleSection = tableView.indexPathsForVisibleRows?.first?.section else { return nil }
         let insetTop = kIndexViewInsetTop
-        /*
-        for section in firstVisibleSection..<tableView.numberOfSections {
-            // sectionFrame是固定的，不会随滑动而改变
-            let sectionFrame = tableView.rect(forSection: section)
-            //找出当前正在显示的section
-            //(section的最大y比偏移量大，说明当前界面显示的第一个section就是当前section)
-            if sectionFrame.maxY - tableView.contentOffset.y > insetTop {
-                currentSection = section
-                break
-            }
-        }*/
         
         currentSection = firstVisibleSection
         
@@ -566,12 +532,6 @@ class TableViewIndex: UIControl {
         if currentIndex >= indexs.count {
             currentIndex = indexs.count - 1
         }
-        /*
-        if currentSection < 0 {
-            currentSection = 0
-        }else if index >= indexs.count {
-            index = indexs.count - 1
-        }*/
         
         let deta = searchLayer == nil ? 0 : 1
         let currentSection = currentIndex - deta

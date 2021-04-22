@@ -14,6 +14,9 @@ class SectionIndexConfig: NSObject {
     ///索引栏高亮时的背景色
     var trackingBackgroundColor: UIColor?
     
+    ///索引内容视图和北京视图的边距
+    var contentInset: UIEdgeInsets = .zero
+    var contentOffset: UIOffset = .zero
     
     ///索引元素配置
     var indexItem: IndexItem

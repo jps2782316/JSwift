@@ -186,8 +186,8 @@
             filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
             landmarkName = "beginTracking(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -195,80 +195,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DDAF6ABA-3CAB-4AA9-9385-9485DA3E9BC6"
+            uuid = "97412D9D-F0F5-4796-864F-7CF2044DA1EB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
-            landmarkName = "configCurrentSection()"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "caculateIndexWithFirstVisibleSection()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A48F3214-7BEB-4669-954C-76C9606BD43B"
+            uuid = "8E5067D7-3383-4C7A-9F2D-A2B2E5909051"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
-            landmarkName = "configCurrentSection()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "949A5016-AE66-4041-BB54-689C83DE6E57"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
-            landmarkName = "configCurrentSection()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5435882C-D678-4030-8B03-1A8134ED1FDD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "currentSection"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "43CBBEAF-91E3-46B1-8621-05858E765D2C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
-            landmarkName = "configSubLayersAndSubviews()"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "caculateIndexWithFirstVisibleSection()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
