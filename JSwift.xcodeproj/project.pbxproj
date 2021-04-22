@@ -32,7 +32,6 @@
 		A068678C262E794C00CA91B0 /* IndexConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A068678B262E794C00CA91B0 /* IndexConfig.swift */; };
 		A0686795262E79BA00CA91B0 /* TableViewIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0686794262E79BA00CA91B0 /* TableViewIndex.swift */; };
 		A06867AB262F000400CA91B0 /* TableCustomIndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06867AA262F000400CA91B0 /* TableCustomIndexViewController.swift */; };
-		A06867B0262FB72400CA91B0 /* TableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06867AF262FB72400CA91B0 /* TableView+Extension.swift */; };
 		A06867C3262FF8C000CA91B0 /* TableViewIndex1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06867C2262FF8C000CA91B0 /* TableViewIndex1.swift */; };
 		A06867E626310BF100CA91B0 /* TextItemLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06867E526310BF100CA91B0 /* TextItemLayer.swift */; };
 		A06867F22631726900CA91B0 /* TableIndexView22.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06867F12631726900CA91B0 /* TableIndexView22.swift */; };
@@ -113,7 +112,6 @@
 		A068678B262E794C00CA91B0 /* IndexConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexConfig.swift; sourceTree = "<group>"; };
 		A0686794262E79BA00CA91B0 /* TableViewIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewIndex.swift; sourceTree = "<group>"; };
 		A06867AA262F000400CA91B0 /* TableCustomIndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCustomIndexViewController.swift; sourceTree = "<group>"; };
-		A06867AF262FB72400CA91B0 /* TableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+Extension.swift"; sourceTree = "<group>"; };
 		A06867C2262FF8C000CA91B0 /* TableViewIndex1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewIndex1.swift; sourceTree = "<group>"; };
 		A06867E526310BF100CA91B0 /* TextItemLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextItemLayer.swift; sourceTree = "<group>"; };
 		A06867F12631726900CA91B0 /* TableIndexView22.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableIndexView22.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 				A06867CA262FFA1200CA91B0 /* ItemConfig */,
 				A06867CB262FFA2700CA91B0 /* ItemView */,
 				A06867CC262FFA4900CA91B0 /* Index */,
-				A06867AF262FB72400CA91B0 /* TableView+Extension.swift */,
 			);
 			path = TableViewIndex;
 			sourceTree = "<group>";
@@ -600,7 +597,6 @@
 				A05495E42619A32E00C6AB0B /* QRCodeGenerator.swift in Sources */,
 				A0CA13402628590A001465F5 /* QRCodeScanningPreview.swift in Sources */,
 				A06867AB262F000400CA91B0 /* TableCustomIndexViewController.swift in Sources */,
-				A06867B0262FB72400CA91B0 /* TableView+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

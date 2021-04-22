@@ -397,7 +397,8 @@ class TableViewIndex22: UIControl {
         switch indicatorConfig.style {
         case .defualt:
             let x = bounds.size.width - indicatorView.bounds.size.width / 2 - indicatorConfig.rightMargin
-            indicatorView.center = CGPoint(x: x, y: textLayer.position.y)
+            let position = indexView.convert(textLayer.position, to: self)
+            indicatorView.center = CGPoint(x: x, y: position.y)
         case .toast:
             indicatorView.center = CGPoint(x: bounds.size.width / 2.0, y: bounds.size.height / 2.0)
         }
@@ -511,7 +512,6 @@ class TableViewIndex22: UIControl {
         
         if currentIndex >= 0 && currentIndex < indexs.count {
             let deta = searchLayer == nil ? 0 : 1
-            //let currentSection = currentIndex - deta
             self.currentSection = currentIndex - deta
             
             showIndicator(animated: true)
