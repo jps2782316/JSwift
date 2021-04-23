@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SectionIndexConfig: NSObject {
+class IndexConfig: NSObject {
     
     ///索引栏背景色
     var backgroundColor: UIColor?
@@ -24,7 +24,7 @@ class SectionIndexConfig: NSObject {
     var indicator: Indicator?
     
     
-    init(indexItem: IndexItem, indicator: Indicator, backgroundColor: UIColor? = nil , trackingBackgroundColor: UIColor? = nil) {
+    init(indexItem: IndexItem, indicator: Indicator?, backgroundColor: UIColor? = nil , trackingBackgroundColor: UIColor? = nil) {
         self.indicator = indicator
         self.indexItem = indexItem
         self.backgroundColor = backgroundColor

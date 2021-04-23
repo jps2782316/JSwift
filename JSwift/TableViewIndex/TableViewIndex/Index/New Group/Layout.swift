@@ -16,7 +16,7 @@ class Layout: NSObject {
     var itemFrames: [CGRect] = []
     
     
-    init(items: [TextItemLayer], config: SectionIndexConfig, bounds: CGRect) {
+    init(items: [TextItemLayer], config: IndexConfig, bounds: CGRect) {
         //let itemSize = CGSize(width: config.indexItem.textFont.lineHeight, height: config.indexItem.textFont.lineHeight)
         let itemSize = CGSize(width: config.indexItem.height, height: config.indexItem.height)
         var itemFrames: [CGRect] = []

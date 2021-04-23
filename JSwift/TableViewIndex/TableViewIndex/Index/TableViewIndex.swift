@@ -101,7 +101,7 @@ class TableViewIndex: UIControl {
         didSet { updateIndexItemSelectedState() }
     }
     ///索引配置
-    private var config: SectionIndexConfig
+    private var config: IndexConfig
     
     
     private(set) var itemLayers: [TextItemLayer] = []
@@ -123,7 +123,7 @@ class TableViewIndex: UIControl {
     private lazy var feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     
     
-    init(config: SectionIndexConfig, tableView: UITableView) {
+    init(config: IndexConfig, tableView: UITableView) {
         self.config = config
         self.tableView = tableView
         super.init(frame: .zero)
@@ -138,7 +138,7 @@ class TableViewIndex: UIControl {
     }
     
     
-    func update(config: SectionIndexConfig) {
+    func update(config: IndexConfig) {
         self.config = config
         if let indicator = config.indicator, indicatorView == nil {
             indicatorView = createIndicatorView(indicator: indicator)

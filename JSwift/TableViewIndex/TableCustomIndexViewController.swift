@@ -11,7 +11,7 @@ class TableCustomIndexViewController: UIViewController {
 
     var tableView: UITableView!
     
-    var indexView: TableViewIndex22!
+    var indexView: TableViewIndex!
     
     var indexs: [String] = []
     var dataSource: [[String]] = []
@@ -53,8 +53,8 @@ class TableCustomIndexViewController: UIViewController {
         
         
         //索引
-        let config = SectionIndexConfig(indexItem: .defualt, indicator: .defualt(style: .defualt))
-        indexView = TableViewIndex22(config: config, tableView: tableView)
+        let config = IndexConfig(indexItem: .defualt, indicator: .defualt(style: .defualt))
+        indexView = TableViewIndex(config: config, tableView: tableView)
         //indexView.delegate = self
         indexView.frame = CGRect(x: view.bounds.width - 44, y: 0, width: 44, height: view.bounds.height)
         self.view.addSubview(indexView)
