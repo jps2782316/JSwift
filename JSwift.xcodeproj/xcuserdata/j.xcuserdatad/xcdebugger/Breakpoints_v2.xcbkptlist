@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "101D12C8-67D4-42B2-877C-45E23FDFF583"
+            uuid = "98C8D7EB-D04A-4712-B1F1-8113A521F60C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSwift/TableViewIndex/TableViewIndex/Index/New Group/TableIndexView22.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
-            landmarkName = "showIndicator(animated:)"
+            startingLineNumber = "555"
+            endingLineNumber = "555"
+            landmarkName = "gestureRecognizerShouldBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "915E508F-B8AB-4826-97D4-4E47B360C7CC"
+            uuid = "28FC900D-2643-4247-8EEA-637CB1101413"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JSwift/TableViewIndex/TableViewIndex/Index/New Group/TableIndexView22.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "511"
-            endingLineNumber = "511"
-            landmarkName = "beginTracking(_:with:)"
+            startingLineNumber = "553"
+            endingLineNumber = "553"
+            landmarkName = "gestureRecognizerShouldBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

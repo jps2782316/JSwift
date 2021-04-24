@@ -42,7 +42,11 @@ extension TableViewIndex22 {
     }
     
     // 根据触摸的y值，计算出点击的是第几个索引
-    func getPositionOfTextLayerInY(y: CGFloat, firstItemY: CGFloat, perItemH: CGFloat) -> Int {
+    func getPositionOfTextLayerInY(in touch: UITouch) -> Int {
+        let y = touch.location(in: self).y
+        
+        let firstItemY = kIndexViewMargin
+        let perItemH = kIndexViewSpace
         /*
          思考: 这里为什么要减去1/2。(其实可以减去1)
          答案: 减去1/2是为了省去下面的取整判断。因为如果position<=0.5(其实是<=1)，没有悬念的就应该是选中第0个，
@@ -65,6 +69,16 @@ extension TableViewIndex22 {
         let final = (biggerCenterY + smallerCenterY > 2 * y) ? smaller : bigger
         return Int(final)
     }
+    
+    ///当前触摸点对应哪个索引
+    private func currentIndex(in touch: UITouch) -> Int? {
+        if itemLayers.isEmpty { return nil }
+        let location = touch.location(in: indexView)
+        let progress = max(0, min(location.y / indexView.bounds.height, 1))
+        let idx = Int(floor(progress * CGFloat(itemLayers.count)))
+        return idx
+    }
+    
     
 }
 
@@ -152,6 +166,12 @@ class TableViewIndex22: UIControl {
             indicatorView = createIndicatorView(indicator: indicatorConfig)
             self.addSubview(indicatorView!)
         }
+        
+        isExclusiveTouch = true
+        isMultipleTouchEnabled = false
+        isAccessibilityElement = true
+        accessibilityTraits = UIAccessibilityTraits.adjustable
+        accessibilityLabel = NSLocalizedString("Table index", comment: "Accessibility title for the section index control")
     }
     
     
@@ -485,19 +505,17 @@ class TableViewIndex22: UIControl {
     
     // MARK: ----------------- UITouch and UIEvent -----------------
     
-    
+    /*
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         // 当滑动索引视图时，防止其他手指去触发事件
         if isTouching { return true }
-        
-        guard let firstLayer = searchLayer ?? itemLayers.first else { return false }
-        guard let lastLayer = itemLayers.last ?? searchLayer else { return false }
-        
-        let space = config.indexItem.rightMargin * 2
-        if point.x > bounds.size.width - space - config.indexItem.height
-            && point.x <= bounds.size.width
-            && point.y > firstLayer.frame.minY - space
-            && point.y < lastLayer.frame.maxY + space {
+        //return bounds.contains(point)
+        let indexRect = self.frame
+        if point.x >= 0 &&
+            point.x <= indexRect.width &&
+            point.y <= indexRect.maxY &&
+            point.y >= indexRect.minY {
+            //点击位置在索引范围内，才响应
             return true
         }
         return false
@@ -505,51 +523,112 @@ class TableViewIndex22: UIControl {
     
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        isTouching = true
-        let location = touch.location(in: self)
-        //当前选中的是第几个索引
-        let currentIndex = getPositionOfTextLayerInY(y: location.y, firstItemY: kIndexViewMargin, perItemH: kIndexViewSpace)
-        
-        if currentIndex >= 0 && currentIndex < indexs.count {
-            let deta = searchLayer == nil ? 0 : 1
-            self.currentSection = currentIndex - deta
-            
-            showIndicator(animated: true)
-            select(section: currentSection)
-            
-            //delegate?.sectionIndexView(self, didSelectSectionAt: self.currentSection)
-        }
-        
+        //if !bounds.contains(touch.location(in: self)) {return false }
+        touchHandle(touch: touch)
         return true
     }
     
     
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        touchHandle(touch: touch)
+        return true
+    }
+    
+    
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+        endTouchHandle()
+    }
+    
+    
+    override func cancelTracking(with event: UIEvent?) {
+        endTouchHandle()
+    }
+    */
+    
+    
+    // Prevent iOS 13 modal pan gesture (or really any pan gesture) from firing when touched
+    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        //return false
+        if let _ = gestureRecognizer.self as? UIPanGestureRecognizer {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    
+    private var currentTouch: UITouch?
+    
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first , bounds.contains(touch.location(in: self)) {
+            beginTouch(touch)
+            touchHandle(touch: touch)
+        }
+        super.touchesBegan(touches, with: event)
+    }
+    
+    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //if let touch = touches.first , bounds.contains(touch.location(in: self)) {
+        if let touch = currentTouch , touches.contains(touch) {
+            touchHandle(touch: touch)
+        }
+        super.touchesMoved(touches, with: event)
+    }
+    
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = currentTouch , touches.contains(touch) {
+            finalizeTouch()
+            endTouchHandle()
+        }
+        super.touchesEnded(touches, with: event)
+    }
+    
+    override open func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = currentTouch, touches.contains(touch) {
+            finalizeTouch()
+            endTouchHandle()
+        }
+        super.touchesCancelled(touches, with: event)
+    }
+    
+    
+    private func beginTouch(_ touch: UITouch) {
+        currentTouch = touch
+        isHighlighted = true
+        //prepareFeedbackGenerator()
+    }
+    
+    private func finalizeTouch() {
+        currentTouch = nil
+        isHighlighted = false
+        //cleanupFeedbackGenerator()
+    }
+    
+    
+    
+    private func touchHandle(touch: UITouch) {
         isTouching = true
-        let location = touch.location(in: self)
         //当前选中的是第几个索引
-        var currentIndex = getPositionOfTextLayerInY(y: location.y, firstItemY: kIndexViewMargin, perItemH: kIndexViewSpace)
+        var currentIndex = getPositionOfTextLayerInY(in: touch)
+        
         if currentIndex >= indexs.count {
             currentIndex = indexs.count - 1
         }
         
         let deta = searchLayer == nil ? 0 : 1
         let currentSection = currentIndex - deta
-        if currentSection != self.currentSection {
+        
+        if currentSection == self.currentSection { return }
+        
+        if currentIndex >= 0 && currentIndex < indexs.count {
             self.currentSection = currentSection
-            
             showIndicator(animated: false)
             select(section: currentSection)
-            
-            //delegate?.sectionIndexView(self, didSelectSectionAt: self.currentSection)
         }
-        
-        
-        return true
     }
     
     
-    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+    private func endTouchHandle() {
         isTouching = false
         let oldCurrentPosition = self.currentSection
         refreshCurrentSection()
@@ -558,20 +637,6 @@ class TableViewIndex22: UIControl {
         }
         hideIndicator(animated: true)
     }
-    
-    
-    override func cancelTracking(with event: UIEvent?) {
-        isTouching = false
-        let oldCurrentPosition = self.currentSection
-        refreshCurrentSection()
-        if oldCurrentPosition != self.currentSection {
-            showIndicator(animated: false)
-        }
-        hideIndicator(animated: true)
-    }
-    
-    
-    
     
 }
 

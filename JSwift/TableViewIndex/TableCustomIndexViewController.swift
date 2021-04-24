@@ -11,7 +11,7 @@ class TableCustomIndexViewController: UIViewController {
 
     var tableView: UITableView!
     
-    var indexView: TableViewIndex!
+    var indexView: TableViewIndex22!
     
     var indexs: [String] = []
     var dataSource: [[String]] = []
@@ -35,7 +35,7 @@ class TableCustomIndexViewController: UIViewController {
             dataSource.append(arr)
         }
         let searchStr = UITableView.indexSearch
-        indexs.insert(searchStr, at: 0)
+        //indexs.insert(searchStr, at: 0)
     }
     
     private func setUI() {
@@ -54,11 +54,12 @@ class TableCustomIndexViewController: UIViewController {
         
         //索引
         let config = IndexConfig(indexItem: .defualt, indicator: .defualt(style: .defualt))
-        indexView = TableViewIndex(config: config, tableView: tableView)
+        indexView = TableViewIndex22(config: config, tableView: tableView)
         //indexView.delegate = self
         indexView.frame = CGRect(x: view.bounds.width - 44, y: 0, width: 44, height: view.bounds.height)
         self.view.addSubview(indexView)
         indexView.indexs = indexs
+        
         
         let isTranslucent = navigationController?.navigationBar.isTranslucent
         indexView.isTranslucentNavi = isTranslucent ?? false

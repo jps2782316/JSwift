@@ -155,7 +155,9 @@ extension TableViewViewController: UITableViewDataSource, UITableViewDelegate {
  滑动tableview，选中相应索引
  索引震动反馈
  索引支持图片、文字。(搜索、文字、自定义image)
+ ios13 modal时，手势冲突解决
  
+ 原点省略功能
  阿语RTL布局适配
  键盘弹起，变成点，像系统联系人那样
  自定义索引列表背景
