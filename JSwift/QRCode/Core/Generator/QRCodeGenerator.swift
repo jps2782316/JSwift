@@ -190,6 +190,11 @@ class QRCodeGenerator: NSObject {
             //不使用滤镜，直接放大也是可以的，只不过是黑白的
             ciImage = originalImage.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
         }
+        
+        /*
+         * Returns a CGImageRef if the CIImage was created with [CIImage imageWithCGImage] or [CIImage imageWithContentsOfURL] and no options.
+          * Otherwise this property will be nil and calling [CIContext createCGImage:fromRect:] is recommended.
+         */
         return ciImage.cgImage
     }
     

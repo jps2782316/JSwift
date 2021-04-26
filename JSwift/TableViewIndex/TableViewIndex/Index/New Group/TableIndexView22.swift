@@ -154,6 +154,11 @@ class TableViewIndex22: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //注意⚠️: 有时候不走layoutSubviews？搞清楚为什么。
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateItemFrame()
+    }
     
     
     private func setUI() {
@@ -187,6 +192,14 @@ class TableViewIndex22: UIControl {
     }
     
     //MARK: --------------------- 创建子控件 ---------------------
+    
+    ///设置item的frame
+    private func updateItemFrame() {
+        let layout = Layout(items: itemLayers, config: config, bounds: self.bounds)
+        indexView.frame = layout.contentFrame
+        backgroundView.frame = layout.backgroundFrame
+        indexView.addItmes(itemLayers)
+    }
     
     ///根据数据源，创建itemLayers
     private func setupItemLayers() {
@@ -247,10 +260,7 @@ class TableViewIndex22: UIControl {
             textLayer.foregroundColor = indexItem.textColor.cgColor
         }
         
-        let layout = Layout(items: itemLayers, config: config, bounds: self.bounds)
-        indexView.frame = layout.contentFrame
-        backgroundView.frame = layout.backgroundFrame
-        indexView.addItmes(itemLayers)
+        updateItemFrame()
         
         
         CATransaction.commit()

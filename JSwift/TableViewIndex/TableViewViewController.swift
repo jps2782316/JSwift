@@ -157,8 +157,16 @@ extension TableViewViewController: UITableViewDataSource, UITableViewDelegate {
  索引支持图片、文字。(搜索、文字、自定义image)
  ios13 modal时，手势冲突解决
  
+ 
  原点省略功能
  阿语RTL布局适配
  键盘弹起，变成点，像系统联系人那样
  自定义索引列表背景
+ 支持tableview，collectionview
+ 
+ 
+ 一屏全展示完时，选中最后一个，要不要跳到第一个
+ 
+ 索引个数与section数量相等时的跳转逻辑。(微信好友列表)
+ 索引个数与section数量不等时的挑战逻辑。(系统通讯录)
  */
