@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 
 extension QRCodeGenerator {
+    /*
+     iOS截屏并修改截图然后分享的功能实现
+     https://blog.csdn.net/weixin_30326745/article/details/96877506?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control
+     */
     
     //MARK: ----------------- 保存二维码到相册 -----------------
     

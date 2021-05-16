@@ -12,6 +12,7 @@ enum DataType: String {
     case `protocol` = "Protocol"
     case other = "Other"
     case tableView = "tableView"
+    case label = "FoldLabel"
 }
 
 
@@ -19,7 +20,7 @@ enum DataType: String {
 class ViewController: UIViewController {
     
     private lazy var dataSource: [DataType] = {
-        let arr: [DataType] = [.generics, .protocol, .other, .tableView]
+        let arr: [DataType] = [.generics, .protocol, .other, .tableView, .label]
         return arr
     }()
 
@@ -78,6 +79,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         case .tableView:
             //let vc = TableViewViewController()
             let vc = TableCustomIndexViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .label:
+            let vc = FoldLabelViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

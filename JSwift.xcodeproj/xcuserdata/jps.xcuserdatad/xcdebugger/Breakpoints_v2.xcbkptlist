@@ -7,23 +7,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CF39F94C-35D3-4A2A-8037-A669700968FD"
+            uuid = "7691FDD2-25D2-4216-A6DE-F45506069800"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeGenerator.swift"
+            filePath = "JSwift/Label/FoldLabel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "clipIcon(_:iconSize:)"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "lineReplace(lineCount:lines:fontDiff:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7E7324A1-D83E-4098-8228-95BA3225D998"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JSwift/Label/FoldLabel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "lineReplace(lineCount:lines:fontDiff:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
+         <BreakpointContent
+            uuid = "83DF0A87-1864-4E05-AECF-7572FCB9E445"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "36C681D9-313B-4E4C-908C-93B565C17DEB"
+            uuid = "41297D83-5776-4C28-8D41-16CE18273220"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -35,192 +60,128 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2F44E39F-87B3-456B-99C2-0ACF901DAAF8"
+            uuid = "E208E417-40AC-40A2-9379-D0D78D11A7B6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JSwift/Label/FoldLabel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "setFoldText(_:width:clicked:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9ABAAF8D-C095-48EC-9A8F-D3C15632B25F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JSwift/ContextMenuInteraction/ChatTextCell.swift"
+            filePath = "JSwift/Label/FoldLabel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "set(msg:)"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "setFoldText(_:width:clicked:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D2E173C7-1BC5-48C4-A452-3C4ED15CB0F7"
+            uuid = "3BCE9372-9543-49EB-AB72-70AAE8FC23F7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JSwift/ContextMenuInteraction/ContextMenuViewController1.swift"
+            filePath = "JSwift/Label/FoldLabel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "setFoldText(_:width:clicked:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2662E3C2-2ACB-42A4-A17F-56A8BDC4F965"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeGenerator+Extension.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "drawPoint(context:indexX:indexY:delta:imgWH:gradientType:shapeStyle:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2BD5A49D-7DC4-4BAD-B748-2009F9B471BC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeGenerator.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "generateGradientCode(str:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1768BFFE-3001-4602-B8C7-3C308B0D284C"
+            uuid = "643D0A23-FD8E-4D17-AE70-B8C9E8235281"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeGenerator+Extension.swift"
+            filePath = "JSwift/Label/FoldLabel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "drawQRCode(codePoints:finalSize:shapeStyle:gradientType:)"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "touchesBegan(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D8C3F34E-4589-4CCE-8BB9-E4D8495B31CF"
+            uuid = "2812DCB9-2D3C-475C-8312-688338286CD3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeGenerator+Extension.swift"
+            filePath = "JSwift/Label/FoldLabel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "getGradientColors(startPoint:endPoint:totalW:gradientType:)"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "touchesBegan(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2ABD7247-FD4C-40CE-B76B-26384EDE631E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeGenerator.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "generateGradientCode(str:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2C0E5868-23B6-4940-93F6-6227ADC60093"
+            uuid = "1C75C940-C7D8-4534-9850-887590CCAF62"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JSwift/QRCode/Core/QRCodeScanningPreview.swift"
+            filePath = "JSwift/Label/FoldLabel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "startAnimation()"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "touchesBegan(_:with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A6C8D4B5-F0A2-4FC6-B8E3-B094914C080F"
-            shouldBeEnabled = "No"
+            uuid = "7B46020F-DAC2-4C41-B472-025E9D5AD527"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JSwift/TableViewIndex/Core/SectionIndexView.swift"
+            filePath = "JSwift/Label/FoldLabel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "itemFont"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E346C31B-3C9E-4547-924C-0D667A04C3B1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "541"
-            endingLineNumber = "541"
-            landmarkName = "beginTracking(_:with:)"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "setFoldText(_:width:clicked:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "97412D9D-F0F5-4796-864F-7CF2044DA1EB"
-            shouldBeEnabled = "No"
+            uuid = "B1A82190-8AEC-4D60-97F5-9024D849A593"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
+            filePath = "JSwift/Label/FoldLabel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
-            landmarkName = "caculateIndexWithFirstVisibleSection()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8E5067D7-3383-4C7A-9F2D-A2B2E5909051"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "JSwift/TableViewIndex/TableViewIndex/Index/TableViewIndex.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
-            landmarkName = "caculateIndexWithFirstVisibleSection()"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "ctFrame(attrString:size:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
