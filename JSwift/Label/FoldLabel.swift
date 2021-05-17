@@ -19,31 +19,43 @@ import UIKit
  */
 
 class FoldLabel: UILabel {
-
     
-//    override func drawText(in rect: CGRect) {
-//        guard let context = UIGraphicsGetCurrentContext() else { return }
-//        context.saveGState()
-//        //将当前context的坐标系进行flip,否则上下颠倒
-//        let flip = CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: bounds.size.height)
-//        context.concatenate(flip)
-//        //设置字形变换矩阵为CGAffineTransformIdentity，也就是说每一个字形都不做图形变换
-//        context.textMatrix = .identity
-//        let str = "fewfwe"
-//        let range = NSMakeRange(0, str.count)
-//
-//    }
+    private var _foldColor: UIColor?
+    var foldColor: UIColor? {
+        get { _foldColor ?? self.textColor! }
+        set { _foldColor = newValue }
+    }
+    
     
     var model: Fold = Fold()
-    
     typealias FoldPackupClick = ((_ isFold: Bool, _ currentHeight: CGFloat) -> Void)
     var clicked: FoldPackupClick?
     
+    
+    func setLabel(isFold: Bool) {
+        if isFold {
+            //已展开，显示全部
+            self.numberOfLines = 0
+            self.attributedText = model.attributeText
+        }else {
+            self.numberOfLines = model.numberOfLines
+            self.attributedText = model.foldAttributeText
+        }
+    }
+    
+    var str: String?
+    
+//    override func draw(_ rect: CGRect) {
+//        print("\(rect)")
+//    }
+    
     func setFoldText(_ text: String?, width: CGFloat, clicked: FoldPackupClick?) {
+        self.layoutIfNeeded()
         isUserInteractionEnabled = true
         self.text = text
-        //self.layoutIfNeeded()
         self.sizeToFit()
+        self.setNeedsDisplay()
+//        self.layoutIfNeeded()
         
         guard let text = text, !text.isEmpty else { return }
         
@@ -51,12 +63,15 @@ class FoldLabel: UILabel {
             setLabel(isFold: model.isFolded)
             return
         }
-        var attrText = NSMutableAttributedString(string: self.text ?? "", attributes: [NSMutableAttributedString.Key.font: self.font!])
+        
+        //1. 完整的富文本，后面拼接了"收起"
+        var attrText = NSMutableAttributedString(string: self.text ?? "", attributes: [.font: self.font!])
         if let str = model.packupText {
-            let packup_attr = NSAttributedString(string: str, attributes: [NSMutableAttributedString.Key.font: self.font!, NSMutableAttributedString.Key.foregroundColor: model.packupTextColor ?? self.textColor!])
+            let packup_attr = NSAttributedString(string: str, attributes: [.font: model.packupFont!, .foregroundColor: model.packupTextColor ?? self.textColor!])
             attrText.append(packup_attr)
         }
         
+        //数据记录
         model.attributeText = attrText
         model.text = attrText.string
         model.textFont = self.font
@@ -64,10 +79,9 @@ class FoldLabel: UILabel {
         model.labelSize = CGSize(width: width, height: bounds.size.height)
         self.clicked = clicked
         
-        let fold_attr = NSAttributedString(string: model.foldText!, attributes: [NSMutableAttributedString.Key.font: model.foldFont!, NSMutableAttributedString.Key.foregroundColor: model.foldTextColor ?? self.textColor!])
         
+        //2.
         let frame = ctFrame(attrString: attrText, size: CGSize(width: width, height: bounds.height))
-        
         let lines = CTFrameGetLines(frame)
         let index: CFIndex = CFArrayGetCount(lines)
         if index == 0 { return }
@@ -76,13 +90,16 @@ class FoldLabel: UILabel {
         let endLineIndex = lineReplace(lineCount: index, lines: lines, fontDiff: model.foldFont!.pointSize - self.font.pointSize)
         model.endLineIndex = endLineIndex
         
-        //let line = CFArrayGetValueAtIndex(lines, endLineIndex) as! CTLine
         let line = (lines as Array)[endLineIndex] as! CTLine
         let lineRange = CTLineGetStringRange(line)
         let trimRange = NSMakeRange(0, lineRange.location + lineRange.length)
+        
+        //"展开"的富文本
+        let fold_attr = NSAttributedString(string: model.foldText!, attributes: [.font: model.foldFont!, .foregroundColor: model.foldTextColor ?? self.textColor!])
+        
         if trimRange.length < self.text?.count ?? 0 {
             //获取当前能显示的文字
-            attrText = attrText.attributedSubstring(from: trimRange).mutableCopy() as! NSMutableAttributedString
+            attrText = attrText.attributedSubstring(from: trimRange) as! NSMutableAttributedString
             if attrText.string.hasSuffix("\n\n") {
                 attrText = attrText.attributedSubstring(from: NSMakeRange(0, lineRange.location + lineRange.length - 1)) as! NSMutableAttributedString
                 attrText.append(NSAttributedString(string: "… "))
@@ -116,16 +133,7 @@ class FoldLabel: UILabel {
     }
     
     
-    func setLabel(isFold: Bool) {
-        if isFold {
-            //已展开，显示全部
-            self.numberOfLines = 0
-            self.attributedText = model.attributeText
-        }else {
-            self.numberOfLines = model.numberOfLines
-            self.attributedText = model.foldAttributeText
-        }
-    }
+    
     
     
     private func ctFrame(attrString: NSAttributedString, size: CGSize) -> CTFrame {
@@ -133,7 +141,8 @@ class FoldLabel: UILabel {
         let path = CGMutablePath()
         //指定每行的宽度,计算共多少行
         path.addRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, 0), path, nil)
+        let lenth = attrString.length
+        let frame = CTFramesetterCreateFrame(frameSetter, CFRangeMake(0, lenth), path, nil)
         return frame
     }
     
@@ -182,15 +191,14 @@ class FoldLabel: UILabel {
     ///   - lineBreakMode:
     /// - Returns:
     class func sizeFor(text: String, font: UIFont, size: CGSize, lineBreakMode: NSLineBreakMode) -> CGSize {
-        var options: [NSAttributedString.Key: Any] = [.font: font]
+        var attributes: [NSAttributedString.Key: Any] = [.font: font]
         if lineBreakMode != .byWordWrapping {
             let style = NSMutableParagraphStyle()
             style.lineBreakMode = lineBreakMode
-            options.updateValue(style, forKey: .paragraphStyle)
+            attributes.updateValue(style, forKey: .paragraphStyle)
         }
-        let attrStr = NSAttributedString(string: text, attributes: options)
+        let attrStr = NSAttributedString(string: text, attributes: attributes)
         let rect = attrStr.boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
-        //(text as NSString).boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: options, context: nil)
         return rect.size
     }
 }
@@ -201,7 +209,9 @@ extension FoldLabel {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
+        //处理左边 (UI坐标和CG坐标是上下相反的)
         let clickPoint = CGPoint(x: location.x, y: bounds.size.height - location.y)
+        
         let frame: CTFrame
         let endLineIndex: CFIndex
         let font: UIFont
@@ -215,31 +225,49 @@ extension FoldLabel {
             font = model.foldFont!
         }
         
-        //获取最后一行
+        //有多少行
         let lines = CTFrameGetLines(frame)
         let lineCount = CFArrayGetCount(lines)
         if lineCount == 0 { return }
         
-        //获取行上行、下行、间距
+        //获取行上行高度、下行高度、行间距
         var ascent: CGFloat = 0, descent: CGFloat = 0, leading: CGFloat = 0
-        //let endLine = CFArrayGetValueAtIndex(lines, endLineIndex) as! CTLine
         let endLine = (lines as Array)[endLineIndex] as! CTLine
         CTLineGetTypographicBounds(endLine, &ascent, &descent, &leading)
         
+        //最后一行的高度
         let endLineHeight = leading + max(font.pointSize, self.font.pointSize)
+        
         //计算点击位置是否在折叠行内
         var origins = [CGPoint](repeating: .zero, count: lineCount) //用于存储每一行的坐标
         
-        
+        // 把ctFrame里每一行的初始坐标写到数组里，注意CoreText的坐标是左下角为原点
         CTFrameGetLineOrigins(frame, CFRangeMake(0, 0), &origins)
         let endLineOrigin = origins[endLineIndex]
         
         let textHeight = bounds.size.height - endLineOrigin.y + endLineHeight
+        
         if clickPoint.y <= (bounds.size.height * 0.5 - textHeight * 0.5 + endLineHeight + 5) && clickPoint.y >= (bounds.size.height * 0.5 - textHeight * 0.5) {
+            
+            //获取点击处position文字在整段文字中的index
             let index = CTLineGetStringIndexForPosition(endLine, clickPoint)
+            
             let foldText = model.foldText ?? ""
-            let offset = self.text?.count ?? 0 > 2 ? 2 : 0
-            let range = NSMakeRange(self.text?.count ?? 0 - foldText.count - offset, foldText.count + offset)
+            guard let text = self.text, !text.isEmpty else { return }
+            
+//            let totalRange = NSMakeRange(text.count, text.count)
+//            if index <= totalRange.location && index >= totalRange.location - foldText.count {
+//                model.isFolded = !model.isFolded
+//                setLabel(isFold: model.isFolded)
+//                if model.isFolded {
+//                    clicked?(model.isFolded, model.textHeight)
+//                }else {
+//                    clicked?(model.isFolded, model.foldHeight)
+//                }
+//            }
+            
+            let offset = text.count > 2 ? 2 : 0
+            let range = NSMakeRange(text.count - foldText.count - offset, foldText.count + offset)
             //判断点击的字符是否在需要处理点击事件的字符串范围内
             if range.location <= index {
                 model.isFolded = !model.isFolded

@@ -10,6 +10,7 @@
 		092C133726344F99008FF088 /* IndexDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C133626344F99008FF088 /* IndexDataSource.swift */; };
 		092C133C263456AA008FF088 /* SearchItemLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092C133B263456AA008FF088 /* SearchItemLayer.swift */; };
 		0930A51A261CBC690055DF16 /* QRCodeGenerator+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930A519261CBC690055DF16 /* QRCodeGenerator+Extension.swift */; };
+		5ED1D295A2B60B54993C293E /* Pods_JSwift_JSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A13BE2692AED1DEDC31AE03 /* Pods_JSwift_JSwiftUITests.framework */; };
 		A002F135260883C900FDEC02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002F134260883C900FDEC02 /* AppDelegate.swift */; };
 		A002F137260883C900FDEC02 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002F136260883C900FDEC02 /* SceneDelegate.swift */; };
 		A002F139260883C900FDEC02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A002F138260883C900FDEC02 /* ViewController.swift */; };
@@ -46,6 +47,10 @@
 		A08456F5264D10E7002C00D8 /* FoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08456F4264D10E7002C00D8 /* FoldLabel.swift */; };
 		A0845700264D27CA002C00D8 /* Fold.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08456FF264D27CA002C00D8 /* Fold.swift */; };
 		A0912CA6264E27F800D07784 /* FoldLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0912CA5264E27F800D07784 /* FoldLabelCell.swift */; };
+		A0912CC6265239B300D07784 /* FoldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0912CC5265239B300D07784 /* FoldView.swift */; };
+		A0912CCC265251DD00D07784 /* BaseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0912CCB265251DD00D07784 /* BaseItem.swift */; };
+		A0912CD4265254BC00D07784 /* TruncationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0912CD3265254BC00D07784 /* TruncationItem.swift */; };
+		A0912CD9265254E800D07784 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0912CD8265254E800D07784 /* DrawView.swift */; };
 		A0973346261C0779007CC582 /* WatermarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973345261C0779007CC582 /* WatermarkMode.swift */; };
 		A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */; };
 		A0973353261C0822007CC582 /* CGImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0973352261C0822007CC582 /* CGImage+Extension.swift */; };
@@ -69,6 +74,8 @@
 		A0CD450426256864009753E6 /* image_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A0CD44FE26256864009753E6 /* image_5.jpg */; };
 		A0CD450C26256984009753E6 /* ContextMenuForTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD450B26256984009753E6 /* ContextMenuForTableViewController.swift */; };
 		A0CD451126256A8D009753E6 /* ChatTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD451026256A8D009753E6 /* ChatTextCell.swift */; };
+		AD160C129A14AE8199C1D797 /* Pods_JSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48417E1F54FA902817534D8F /* Pods_JSwift.framework */; };
+		E84F533C213BF8E27CF1CAD6 /* Pods_JSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7FDE4100A71C1EF0685E4C1 /* Pods_JSwiftTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +99,12 @@
 		092C133626344F99008FF088 /* IndexDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexDataSource.swift; sourceTree = "<group>"; };
 		092C133B263456AA008FF088 /* SearchItemLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchItemLayer.swift; sourceTree = "<group>"; };
 		0930A519261CBC690055DF16 /* QRCodeGenerator+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QRCodeGenerator+Extension.swift"; sourceTree = "<group>"; };
+		13B5601E24AC9E315B732F38 /* Pods-JSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSwift.debug.xcconfig"; path = "Target Support Files/Pods-JSwift/Pods-JSwift.debug.xcconfig"; sourceTree = "<group>"; };
+		48417E1F54FA902817534D8F /* Pods_JSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A13BE2692AED1DEDC31AE03 /* Pods_JSwift_JSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSwift_JSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67E1654BDB17CFA1F5C62C07 /* Pods-JSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-JSwiftTests/Pods-JSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		6B9F5C3BAA3195DF6AE7985C /* Pods-JSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSwift.release.xcconfig"; path = "Target Support Files/Pods-JSwift/Pods-JSwift.release.xcconfig"; sourceTree = "<group>"; };
+		7D3D14201EC84C1CD2DC13BD /* Pods-JSwift-JSwiftUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSwift-JSwiftUITests.release.xcconfig"; path = "Target Support Files/Pods-JSwift-JSwiftUITests/Pods-JSwift-JSwiftUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A002F131260883C900FDEC02 /* JSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A002F134260883C900FDEC02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A002F136260883C900FDEC02 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +147,10 @@
 		A08456F4264D10E7002C00D8 /* FoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldLabel.swift; sourceTree = "<group>"; };
 		A08456FF264D27CA002C00D8 /* Fold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fold.swift; sourceTree = "<group>"; };
 		A0912CA5264E27F800D07784 /* FoldLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldLabelCell.swift; sourceTree = "<group>"; };
+		A0912CC5265239B300D07784 /* FoldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldView.swift; sourceTree = "<group>"; };
+		A0912CCB265251DD00D07784 /* BaseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseItem.swift; sourceTree = "<group>"; };
+		A0912CD3265254BC00D07784 /* TruncationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TruncationItem.swift; sourceTree = "<group>"; };
+		A0912CD8265254E800D07784 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		A0973345261C0779007CC582 /* WatermarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatermarkMode.swift; sourceTree = "<group>"; };
 		A097334D261C07F6007CC582 /* QRCodeGenerator2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator2.swift; sourceTree = "<group>"; };
 		A0973352261C0822007CC582 /* CGImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImage+Extension.swift"; sourceTree = "<group>"; };
@@ -157,6 +174,9 @@
 		A0CD44FE26256864009753E6 /* image_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_5.jpg; sourceTree = "<group>"; };
 		A0CD450B26256984009753E6 /* ContextMenuForTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuForTableViewController.swift; sourceTree = "<group>"; };
 		A0CD451026256A8D009753E6 /* ChatTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextCell.swift; sourceTree = "<group>"; };
+		C77CD69B198BF30170C26F9A /* Pods-JSwift-JSwiftUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSwift-JSwiftUITests.debug.xcconfig"; path = "Target Support Files/Pods-JSwift-JSwiftUITests/Pods-JSwift-JSwiftUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C7FDE4100A71C1EF0685E4C1 /* Pods_JSwiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JSwiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6E830A617E6317A2A902997 /* Pods-JSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-JSwiftTests/Pods-JSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD160C129A14AE8199C1D797 /* Pods_JSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +192,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E84F533C213BF8E27CF1CAD6 /* Pods_JSwiftTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,12 +200,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ED1D295A2B60B54993C293E /* Pods_JSwift_JSwiftUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		581710883BD8D1CA1821D364 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				48417E1F54FA902817534D8F /* Pods_JSwift.framework */,
+				5A13BE2692AED1DEDC31AE03 /* Pods_JSwift_JSwiftUITests.framework */,
+				C7FDE4100A71C1EF0685E4C1 /* Pods_JSwiftTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A002F128260883C900FDEC02 = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +224,8 @@
 				A002F14A260883CA00FDEC02 /* JSwiftTests */,
 				A002F155260883CA00FDEC02 /* JSwiftUITests */,
 				A002F132260883C900FDEC02 /* Products */,
+				C0F23D8463F2E2A7A6C254C4 /* Pods */,
+				581710883BD8D1CA1821D364 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -412,12 +447,24 @@
 		A08456EB264D05C1002C00D8 /* Label */ = {
 			isa = PBXGroup;
 			children = (
+				A0912CCA265251BA00D07784 /* New Group */,
 				A08456EC264D05D6002C00D8 /* FoldLabelViewController.swift */,
+				A0912CC5265239B300D07784 /* FoldView.swift */,
 				A08456FF264D27CA002C00D8 /* Fold.swift */,
 				A08456F4264D10E7002C00D8 /* FoldLabel.swift */,
 				A0912CA5264E27F800D07784 /* FoldLabelCell.swift */,
 			);
 			path = Label;
+			sourceTree = "<group>";
+		};
+		A0912CCA265251BA00D07784 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				A0912CCB265251DD00D07784 /* BaseItem.swift */,
+				A0912CD3265254BC00D07784 /* TruncationItem.swift */,
+				A0912CD8265254E800D07784 /* DrawView.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		A0973344261C0755007CC582 /* New Group */ = {
@@ -474,6 +521,20 @@
 			path = TableViewPlaceholder;
 			sourceTree = "<group>";
 		};
+		C0F23D8463F2E2A7A6C254C4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				13B5601E24AC9E315B732F38 /* Pods-JSwift.debug.xcconfig */,
+				6B9F5C3BAA3195DF6AE7985C /* Pods-JSwift.release.xcconfig */,
+				C77CD69B198BF30170C26F9A /* Pods-JSwift-JSwiftUITests.debug.xcconfig */,
+				7D3D14201EC84C1CD2DC13BD /* Pods-JSwift-JSwiftUITests.release.xcconfig */,
+				D6E830A617E6317A2A902997 /* Pods-JSwiftTests.debug.xcconfig */,
+				67E1654BDB17CFA1F5C62C07 /* Pods-JSwiftTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -481,9 +542,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A002F15B260883CA00FDEC02 /* Build configuration list for PBXNativeTarget "JSwift" */;
 			buildPhases = (
+				F6878DC489375C2D7E75A031 /* [CP] Check Pods Manifest.lock */,
 				A002F12D260883C900FDEC02 /* Sources */,
 				A002F12E260883C900FDEC02 /* Frameworks */,
 				A002F12F260883C900FDEC02 /* Resources */,
+				950D1E473CF4912FDF7C1A8F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -498,6 +561,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A002F15E260883CA00FDEC02 /* Build configuration list for PBXNativeTarget "JSwiftTests" */;
 			buildPhases = (
+				F92A57846B3638D8D0224030 /* [CP] Check Pods Manifest.lock */,
 				A002F143260883CA00FDEC02 /* Sources */,
 				A002F144260883CA00FDEC02 /* Frameworks */,
 				A002F145260883CA00FDEC02 /* Resources */,
@@ -516,9 +580,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A002F161260883CA00FDEC02 /* Build configuration list for PBXNativeTarget "JSwiftUITests" */;
 			buildPhases = (
+				9F7674CE65FA218C26C196E3 /* [CP] Check Pods Manifest.lock */,
 				A002F14E260883CA00FDEC02 /* Sources */,
 				A002F14F260883CA00FDEC02 /* Frameworks */,
 				A002F150260883CA00FDEC02 /* Resources */,
+				FC73B5E67ACEBDBDFF735659 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -609,6 +675,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		950D1E473CF4912FDF7C1A8F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JSwift/Pods-JSwift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JSwift/Pods-JSwift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JSwift/Pods-JSwift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F7674CE65FA218C26C196E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JSwift-JSwiftUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F6878DC489375C2D7E75A031 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JSwift-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F92A57846B3638D8D0224030 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JSwiftTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC73B5E67ACEBDBDFF735659 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JSwift-JSwiftUITests/Pods-JSwift-JSwiftUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JSwift-JSwiftUITests/Pods-JSwift-JSwiftUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JSwift-JSwiftUITests/Pods-JSwift-JSwiftUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A002F12D260883C900FDEC02 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -623,9 +792,11 @@
 				0930A51A261CBC690055DF16 /* QRCodeGenerator+Extension.swift in Sources */,
 				A0686783262D7E3300CA91B0 /* TableViewViewController.swift in Sources */,
 				A08456ED264D05D6002C00D8 /* FoldLabelViewController.swift in Sources */,
+				A0912CCC265251DD00D07784 /* BaseItem.swift in Sources */,
 				A068678C262E794C00CA91B0 /* IndexConfig.swift in Sources */,
 				A0CD451126256A8D009753E6 /* ChatTextCell.swift in Sources */,
 				A0CD44DF26244179009753E6 /* ContextMenuViewController1.swift in Sources */,
+				A0912CD4265254BC00D07784 /* TruncationItem.swift in Sources */,
 				A0845700264D27CA002C00D8 /* Fold.swift in Sources */,
 				A0CD44ED262467E5009753E6 /* ImageCell.swift in Sources */,
 				A05495602615B00200C6AB0B /* CommonViewController+Net.swift in Sources */,
@@ -638,6 +809,7 @@
 				A0912CA6264E27F800D07784 /* FoldLabelCell.swift in Sources */,
 				A06867FA2631727900CA91B0 /* IndexView.swift in Sources */,
 				A0CD450C26256984009753E6 /* ContextMenuForTableViewController.swift in Sources */,
+				A0912CD9265254E800D07784 /* DrawView.swift in Sources */,
 				A0CA133526280943001465F5 /* CIImage+Pixcels.swift in Sources */,
 				A097334E261C07F6007CC582 /* QRCodeGenerator2.swift in Sources */,
 				A054957F2616CC0900C6AB0B /* QRCodeViewController.swift in Sources */,
@@ -655,6 +827,7 @@
 				A099403E2609834200D33D17 /* GenericDictionary.swift in Sources */,
 				A08456F5264D10E7002C00D8 /* FoldLabel.swift in Sources */,
 				092C133C263456AA008FF088 /* SearchItemLayer.swift in Sources */,
+				A0912CC6265239B300D07784 /* FoldView.swift in Sources */,
 				A05495882616CC1600C6AB0B /* QRCodeUtil.swift in Sources */,
 				A0686795262E79BA00CA91B0 /* TableViewIndex.swift in Sources */,
 				A08456C826450952002C00D8 /* ShareViewController.swift in Sources */,
@@ -833,6 +1006,7 @@
 		};
 		A002F15C260883CA00FDEC02 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13B5601E24AC9E315B732F38 /* Pods-JSwift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -853,6 +1027,7 @@
 		};
 		A002F15D260883CA00FDEC02 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B9F5C3BAA3195DF6AE7985C /* Pods-JSwift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -873,6 +1048,7 @@
 		};
 		A002F15F260883CA00FDEC02 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6E830A617E6317A2A902997 /* Pods-JSwiftTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -895,6 +1071,7 @@
 		};
 		A002F160260883CA00FDEC02 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67E1654BDB17CFA1F5C62C07 /* Pods-JSwiftTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -917,6 +1094,7 @@
 		};
 		A002F162260883CA00FDEC02 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C77CD69B198BF30170C26F9A /* Pods-JSwift-JSwiftUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -937,6 +1115,7 @@
 		};
 		A002F163260883CA00FDEC02 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D3D14201EC84C1CD2DC13BD /* Pods-JSwift-JSwiftUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

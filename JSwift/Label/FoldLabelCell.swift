@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class FoldLabelCell: UITableViewCell {
     var label: FoldLabel!
@@ -21,19 +22,26 @@ class FoldLabelCell: UITableViewCell {
     
     private func setUI() {
         label = FoldLabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.textColor = .gray
         label.font = UIFont.systemFont(ofSize: 14)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(label)
-        let constraints: [NSLayoutConstraint] = [
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            label.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
-            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0),
-            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20)
-        ]
-        NSLayoutConstraint.activate(constraints)
+        label.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(0)
+            make.trailing.equalToSuperview().offset(0)
+            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().offset(0)
+        }
+        
+//        let constraints: [NSLayoutConstraint] = [
+//            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+//            label.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -20),
+//            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0),
+//            label.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20)
+//        ]
+//        NSLayoutConstraint.activate(constraints)
         
         let model = Fold()
         model.foldText = "更多"

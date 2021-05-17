@@ -14,8 +14,8 @@ class ChatTextCell: UITableViewCell {
     
     //聊天气泡
     lazy var bgImageView = UIImageView()
-        
-        
+    
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUI()
